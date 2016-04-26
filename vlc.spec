@@ -5,7 +5,7 @@
 %global gver .%{gitdate}git%{gitversion}
 
 %bcond_without workaround_circle_deps 
-%bcond_with codecs
+%bcond_without codecs
 %bcond_without vaapi
 %bcond_without ffmpeg
 # yes, libav
