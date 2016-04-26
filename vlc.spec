@@ -177,7 +177,6 @@ BuildRequires:	libnotify-devel
 BuildRequires:	libXi-devel
 # Those are dependencies which are NOT provided in Fedora, mostly for legal reasons.
 BuildRequires: a52dec-devel
-%if %{with codecs}
 BuildRequires: faad2-devel
 BuildRequires: libdca-devel
 BuildRequires: libdvbpsi-devel
@@ -189,7 +188,6 @@ BuildRequires: x265-devel
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 0-0.33
 BuildRequires: libmpg123-devel
-%endif
 #
 
 Provides: %{name}-xorg%{_isa} = %{version}-%{release}
@@ -299,7 +297,6 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
 	--enable-jack				\
 	--enable-pulse				\
 	--enable-ncurses			\
-%if %{with codecs}
   	--enable-libmpeg2			\
    	--enable-mad				\
    	--enable-avcodec			\
@@ -311,19 +308,6 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
    	--enable-dca				\
    	--enable-twolame			\
    	--enable-live555			\
-%else
-   	--disable-libmpeg2			\
-   	--disable-mad				\
-   	--disable-avcodec 			\
-   	--disable-avformat			\
-   	--disable-swscale 			\ 
-   	--disable-postproc 			\
-   	--disable-faad				\
-	--disable-a52				\
-	--disable-dca				\
-   	--disable-twolame			\
-	--disable-live555			\
-%endif
 %if %{with vdpau}
 	--enable-vdpau				\
 %endif
