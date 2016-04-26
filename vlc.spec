@@ -1,6 +1,6 @@
-#globals for vlc-3.0.0-20160229-10f9493.tar.xz
-%global gitdate 20160229
-%global gitversion 10f9493
+#globals for vlc-3.0.0-20160426-9ce2d2e.tar.xz
+%global gitdate 20160426
+%global gitversion 9ce2d2e
 %global snapshot %{gitdate}-%{gitversion}
 %global gver .%{gitdate}git%{gitversion}
 
@@ -27,13 +27,13 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	1%{?gver}%{?dist}
+Release:	2%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	%{name}-%{version}-%{snapshot}.tar.xz
 Source1: 	%{name}-snapshot.sh
-# Patch0:		enable_embedded_video.patch
+
 
 BuildRequires:	desktop-file-utils
 
@@ -176,8 +176,8 @@ BuildRequires:	gstreamer1-plugins-base-devel
 BuildRequires:	libnotify-devel
 BuildRequires:	libXi-devel
 # Those are dependencies which are NOT provided in Fedora, mostly for legal reasons.
-%if %{with codecs}
 BuildRequires: a52dec-devel
+%if %{with codecs}
 BuildRequires: faad2-devel
 BuildRequires: libdca-devel
 BuildRequires: libdvbpsi-devel
@@ -526,6 +526,9 @@ fi || :
 
 
 %changelog
+
+* Tue Apr 26 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-20160426-9ce2d2e-2
+- Updated to 3.0.0-20160426-9ce2d2e
 
 * Mon Feb 29 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-20160229-10f9493-1
 - Updated to 3.0.0-20160229-10f9493
