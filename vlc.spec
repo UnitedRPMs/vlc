@@ -14,6 +14,7 @@
 
 %global _with_bluray    1
 %bcond_with opencv 
+%bcond_without freerdp
 %bcond_with fluidsynth 
 %bcond_with vdpau
 %bcond_without qt5 
@@ -27,13 +28,12 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	4%{?gver}%{?dist}
+Release:	5%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	%{name}-%{version}-%{snapshot}.tar.xz
 Source1: 	%{name}-snapshot.sh
-
 
 BuildRequires:	desktop-file-utils
 
@@ -59,8 +59,10 @@ BuildRequires:	flac-devel
 %if %{with fluidsynth}
 BuildRequires: fluidsynth-devel
 %endif
-# BuildRequires: freerdp1-devel
-BuildRequires:	freerdp-devel
+%if %{with freerdp}
+BuildRequires: freerdp1-devel
+# BuildRequires: freerdp-devel
+%endif
 BuildRequires:	fribidi-devel
 BuildRequires: gnome-vfs2-devel
 BuildRequires:	gnutls-devel >= 1.0.17
@@ -255,14 +257,14 @@ JACK audio plugin for the VLC media player.
 %prep
 
 %setup -n %{name}
-# %patch0 -p0
+
 
 ./bootstrap
 
 
 %build
 
-PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/libav/pkgconfig/:/opt/freerdp-1.0.2/%{_lib}/pkgconfig/:/usr/lib/pkgconfig/:
+PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/libav/pkgconfig/:/opt/freerdp-1.0.2/%{_lib}/pkgconfig/:
 
 %configure  \
 	--disable-dependency-tracking		\
@@ -279,11 +281,7 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
 	--enable-lua				\
 %if %{with opencv}
 	--enable-opencv		 		\
-%else
-	--disable-opencv			\
 %endif
-	--enable-gnomevfs			\
-	--enable-vcdx				\
 	--enable-realrtsp			\
 	--enable-flac				\
 	--enable-tremor				\
@@ -319,9 +317,8 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
 	--enable-freetype                    	\
    	--with-default-font=%{_datadir}/fonts/truetype/FreeSerifBold.ttf \
    	--with-default-monospace-font=%{_datadir}/fonts/truetype/FreeMono.ttf \
-	--disable-oss                        	\
-  	--enable-freerdp                     	\
-	--enable-lirc
+	--disable-oss 				 
+
 
 echo '********* FINISHED CONFIGURE *********'
 date
@@ -512,6 +509,9 @@ fi || :
 
 
 %changelog
+
+* Sat May 07 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-5-20160506-fa5c292
+- Conditional build for freerdp
 
 * Fri May 06 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-4-20160506-fa5c292
 - Updated to 3.0.0-20160506-fa5c292
