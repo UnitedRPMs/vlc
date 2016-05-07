@@ -13,7 +13,7 @@
 #
 
 %global _with_bluray    1
-%bcond_without opencv 
+%bcond_with opencv 
 %bcond_with fluidsynth 
 %bcond_with vdpau
 %bcond_without qt5 
@@ -513,6 +513,7 @@ fi || :
 
 * Fri May 06 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-4-20160506-fa5c292
 - Updated to 3.0.0-20160506-fa5c292
+- Disabled opencv for compatibility
 
 * Tue Apr 26 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-20160426-9ce2d2e-3
 - Updated to 3.0.0-20160426-9ce2d2e
