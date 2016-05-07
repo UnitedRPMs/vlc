@@ -279,6 +279,8 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
 	--enable-lua				\
 %if %{with opencv}
 	--enable-opencv		 		\
+%else
+	--disable-opencv			\
 %endif
 	--enable-gnomevfs			\
 	--enable-vcdx				\
