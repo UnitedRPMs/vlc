@@ -1,6 +1,6 @@
-#globals for vlc-3.0.0-20160506-fa5c292.tar.xz
-%global gitdate 20160506
-%global gitversion fa5c292
+#globals for vlc-3.0.0-20160608-bb83680.tar.xz
+%global gitdate 20160608
+%global gitversion bb83680
 %global snapshot %{gitdate}-%{gitversion}
 %global gver .%{gitdate}git%{gitversion}
 
@@ -28,7 +28,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	5%{?gver}%{?dist}
+Release:	6%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -60,8 +60,8 @@ BuildRequires:	flac-devel
 BuildRequires: fluidsynth-devel
 %endif
 %if %{with freerdp}
-BuildRequires: freerdp1-devel
-# BuildRequires: freerdp-devel
+# BuildRequires: freerdp1-devel
+BuildRequires: freerdp-devel
 %endif
 BuildRequires:	fribidi-devel
 BuildRequires: gnome-vfs2-devel
@@ -317,7 +317,8 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
 	--enable-freetype                    	\
    	--with-default-font=%{_datadir}/fonts/truetype/FreeSerifBold.ttf \
    	--with-default-monospace-font=%{_datadir}/fonts/truetype/FreeMono.ttf \
-	--disable-oss 				 
+	--disable-oss 				\
+	--enable-freerdp					 
 
 
 echo '********* FINISHED CONFIGURE *********'
@@ -509,6 +510,10 @@ fi || :
 
 
 %changelog
+
+* Wed Jun 08 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-6-20160608-bb83680
+- Updated to 3.0.0-20160608-bb83680
+- Solved librdp lost
 
 * Sat May 07 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-5-20160506-fa5c292
 - Conditional build for freerdp
