@@ -1,6 +1,6 @@
-#globals for vlc-3.0.0-20160608-bb83680.tar.xz
-%global gitdate 20160608
-%global gitversion bb83680
+#globals for vlc-3.0.0-20160708-ca134b9.tar.xz
+%global gitdate 20160708
+%global gitversion ca134b9
 %global snapshot %{gitdate}-%{gitversion}
 %global gver .%{gitdate}git%{gitversion}
 
@@ -28,7 +28,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	7%{?gver}%{?dist}
+Release:	8%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -60,8 +60,8 @@ BuildRequires:	flac-devel
 BuildRequires: fluidsynth-devel
 %endif
 %if %{with freerdp}
-# BuildRequires: freerdp1-devel
-BuildRequires: freerdp-devel
+BuildRequires: freerdp1-devel
+# BuildRequires: freerdp-devel
 %endif
 BuildRequires:	fribidi-devel
 BuildRequires: gnome-vfs2-devel
@@ -510,9 +510,12 @@ fi || :
 
 
 %changelog
+
+* Fri Jul 08 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-20160708gitca134b9
+- Rebuilt for FFmpeg 3.1
+
 * Sun Jun 26 2016 The UnitedRPMs Project (Key for UnitedRPMs infrastructure) <unitedrpms@protonmail.com> - 3.0.0-7.20160608gitbb83680
 - Rebuild with new ffmpeg
-
 
 * Wed Jun 08 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-6-20160608-bb83680
 - Updated to 3.0.0-20160608-bb83680
