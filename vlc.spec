@@ -1,6 +1,6 @@
-#globals for vlc-3.0.0-20160824-3f83cde.tar.xz
-%global gitdate 20160824
-%global gitversion 3f83cde
+#globals for vlc-3.0.0-20160902-1e5a21b.tar.xz
+%global gitdate 20160902
+%global gitversion 1e5a21b
 %global snapshot %{gitdate}-%{gitversion}
 %global gver .%{gitdate}git%{gitversion}
 
@@ -28,7 +28,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	10%{?gver}%{?dist}
+Release:	11%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -510,6 +510,9 @@ fi || :
 
 
 %changelog
+
+* Fri Sep 02 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-11-20160902git1e5a21b
+- Updated to 3.0.0-20160902git1e5a21b
 
 * Mon Aug 15 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-10-20160824git3f83cde
 - Rebuild with new live555
