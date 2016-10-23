@@ -1,8 +1,8 @@
 #globals for vlc-3.0.0-20161005-636476b.tar.xz
-%global gitdate 20161005
-%global gitversion 636476b
-%global snapshot %{gitdate}-%{gitversion}
-%global gver .%{gitdate}git%{gitversion}
+%global gitdate 20161023
+%global commit0 4c430331e9572c50a1ad166667ddf4ee2732dd5f
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global gver .%{gitdate}git%{shortcommit0}
 
 %bcond_without workaround_circle_deps 
 %bcond_without codecs
@@ -28,12 +28,12 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	12%{?gver}%{?dist}
+Release:	13%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:	%{name}-%{version}-%{snapshot}.tar.xz
-Source1: 	%{name}-snapshot.sh
+Source0:        https://github.com/videolan/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source1: 	https://raw.githubusercontent.com/UnitedRPMs/vlc/master/SOURCES/%{name}-snapshot.sh
 
 BuildRequires:	desktop-file-utils
 
@@ -256,8 +256,7 @@ JACK audio plugin for the VLC media player.
 
 %prep
 
-%setup -n %{name}
-
+%autosetup -n %{name}-%{commit0}
 
 ./bootstrap
 
