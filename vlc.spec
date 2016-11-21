@@ -36,18 +36,27 @@ Source0:        https://github.com/videolan/%{name}/archive/%{commit0}.tar.gz#/%
 Source1: 	https://raw.githubusercontent.com/UnitedRPMs/vlc/master/SOURCES/%{name}-snapshot.sh
 
 BuildRequires:	desktop-file-utils
-
-
 BuildRequires:	gettext-devel
 BuildRequires:	libtool
-
-
-
 BuildRequires:	aalib-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	avahi-devel
 BuildRequires:	cdparanoia-devel
 BuildRequires:	pkgconfig(dbus-1)
+BuildRequires:	libnfs-devel
+BuildRequires:	libarchive-devel
+BuildRequires:  libsidplayfp-devel
+BuildRequires:  libmpc-devel
+BuildRequires:  gstreamer1-devel
+BuildRequires:  speexdsp-devel
+BuildRequires:	openjpeg-devel
+BuildRequires:	libmfx-devel
+BuildRequires:	fluidsynth-devel
+BuildRequires:	libvmmalloc-devel
+BuildRequires:  soxr-devel
+BuildRequires:  protobuf-lite-devel
+BuildRequires:  libsecret-devel
+BuildRequires:  libnotify-devel
 
 %if %{with ffmpeg}
 BuildRequires: ffmpeg-devel >= 0.4.9-0
