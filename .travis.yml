@@ -1,5 +1,5 @@
 mock_travis:
-  mock_config: fedora-rawhide-x86_64
+  mock_config: fedora-25-x86_64
   packages_buildrequires_git: UnitedRPMs/vlc
 sudo: required
 services:
