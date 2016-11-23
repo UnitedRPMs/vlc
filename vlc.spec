@@ -34,7 +34,7 @@ License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://transfer.sh/mYNIG/vlc-3.0.0-20161122-ccfdb5a.tar.xz
-Source1: 	%{name}-snapshot.sh
+Source1: 	https://raw.githubusercontent.com/UnitedRPMs/vlc/master/vlc-snapshot.sh
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
