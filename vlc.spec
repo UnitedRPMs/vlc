@@ -1,8 +1,8 @@
-#globals for vlc-3.0.0-20161005-636476b.tar.xz
-%global gitdate 20161121
-%global commit0 4890a413e8fc0e780149b94ff46a0239094d052b
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gver .%{gitdate}git%{shortcommit0}
+#globals for vlc-3.0.0-20161122-ccfdb5a.tar.xz
+%global gitdate 20161122
+%global gitversion ccfdb5a
+%global snapshot %{gitdate}-%{gitversion}
+%global gver .%{gitdate}git%{gitversion}
 
 %bcond_without workaround_circle_deps 
 %bcond_without codecs
@@ -11,10 +11,11 @@
 # yes, libav
 %bcond_with libav 
 #
+%bcond_with gstreamer
 
 %global _with_bluray    1
 %bcond_with opencv 
-%bcond_without freerdp
+%bcond_with freerdp
 %bcond_with fluidsynth 
 %bcond_with vdpau
 %bcond_without qt5 
@@ -28,12 +29,12 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	14%{?gver}%{?dist}
+Release:	15%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:        https://github.com/videolan/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-Source1: 	https://raw.githubusercontent.com/UnitedRPMs/vlc/master/SOURCES/%{name}-snapshot.sh
+Source0:	https://transfer.sh/mYNIG/vlc-3.0.0-20161122-ccfdb5a.tar.xz
+Source1: 	%{name}-snapshot.sh
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -47,14 +48,15 @@ BuildRequires:	libnfs-devel
 BuildRequires:	libarchive-devel
 BuildRequires:  libsidplayfp-devel
 BuildRequires:  libmpc-devel
-BuildRequires:  gstreamer1-devel
+%if %{with gstreamer}
+BuildRequires:  pkgconfig(gstreamer-app-1.0)
+%endif
 BuildRequires:  speexdsp-devel
 BuildRequires:	openjpeg-devel
 BuildRequires:	libmfx-devel
 BuildRequires:	fluidsynth-devel
 BuildRequires:	libvmmalloc-devel
 BuildRequires:  soxr-devel
-BuildRequires:  protobuf-lite-devel
 BuildRequires:  libsecret-devel
 BuildRequires:  libnotify-devel
 
@@ -181,9 +183,6 @@ BuildRequires:	perl-Devel-Pragma
 BuildRequires:	git
 BuildRequires:	freetype-devel
 BuildRequires:	libXinerama-devel
-%if 0%{?fedora} <= 23
-BuildRequires:	gstreamer1-plugins-base-devel
-%endif
 BuildRequires:	libnotify-devel
 BuildRequires:	libXi-devel
 # Those are dependencies which are NOT provided in Fedora, mostly for legal reasons.
@@ -200,6 +199,9 @@ BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 0-0.33
 BuildRequires: libmpg123-devel
 #
+
+# Chromecast
+BuildRequires:  protobuf-lite-devel
 
 Provides: %{name}-xorg%{_isa} = %{version}-%{release}
 Requires: vlc-core%{_isa} = %{version}-%{release}
@@ -262,10 +264,21 @@ Requires:	vlc-core%{_isa} = %{version}-%{release}
 %description plugin-jack
 JACK audio plugin for the VLC media player.
 
+%if %{with gstreamer}
+%package codec-gstreamer
+Summary:        Decode using GStreamer for VLC
+Group:          Applications/Multimedia
+Requires:       %{name} = %{version}-%{release}
+
+%description codec-gstreamer
+This package enhances the functionality of the VLC VideoLAN Client by
+using GStreamer as backend to decode videos (incl. GStreamers available
+modules).
+%endif
 
 %prep
 
-%autosetup -n %{name}-%{commit0}
+%setup -n %{name}
 
 ./bootstrap
 
@@ -326,7 +339,9 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
    	--with-default-font=%{_datadir}/fonts/truetype/FreeSerifBold.ttf \
    	--with-default-monospace-font=%{_datadir}/fonts/truetype/FreeMono.ttf \
 	--disable-oss 				\
-	--enable-freerdp					 
+%if %{with freerdp}
+	--enable-freerdp			\
+%endif					 
 
 
 echo '********* FINISHED CONFIGURE *********'
@@ -334,7 +349,7 @@ date
 
 #./compile
 CFLAGS="-fPIC"
-  make || return 1
+make || return 1
 
 
 %install
@@ -437,6 +452,9 @@ fi || :
 
 %{_libdir}/vlc/plugins/audio_output/libpulse_plugin.so
 
+# Chromecast plugin; maybe we don't need make a subpackage about it...
+# /usr/lib64/vlc/plugins/stream_out/libstream_out_chromecast_plugin.so
+
 %files core -f %{name}.lang
 %{_bindir}/vlc
 %{_bindir}/cvlc
@@ -487,6 +505,10 @@ fi || :
 %exclude %{_libdir}/vlc/plugins/audio_output/libjack_plugin.so
 %exclude %{_libdir}/vlc/plugins/audio_output/libpulse_plugin.so
 
+%if %{with gstreamer}
+%exclude %{_libdir}/vlc/plugins/codec/libgstdecode_plugin.so
+%endif
+
 %{_libdir}/vlc/
 %{_mandir}/man1/vlc*.1*
 
@@ -516,59 +538,71 @@ fi || :
 %{_libdir}/pkgconfig/vlc-plugin.pc
 %{_libdir}/pkgconfig/libvlc.pc
 
+%if %{with gstreamer}
+%files codec-gstreamer
+%{_libdir}/vlc/plugins/codec/libgstdecode_plugin.so
+%endif
+
 
 
 %changelog
+
+* Tue Nov 22 2016 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-15-20161122gitccfdb5a
+- Reverted source, the commit is incomplete
+- Snapshot changes for new infraestructure
+- Enabled Chromecast support
+- Updated to 3.0.0-20161122gitccfdb5a
+
 * Mon Nov 21 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-14
 - Update to %{gitdate}
 
-* Wed Oct 05 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-12-20161005git636476b
+* Wed Oct 05 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-12-20161005git636476b
 - Updated to 3.0.0-20161005git636476b
 - Rebuilt thanks to live555
 
-* Fri Sep 02 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-11-20160902git1e5a21b
+* Fri Sep 02 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-11-20160902git1e5a21b
 - Updated to 3.0.0-20160902git1e5a21b
 
-* Mon Aug 15 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-10-20160824git3f83cde
+* Mon Aug 15 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-10-20160824git3f83cde
 - Rebuild with new live555
 - Updated to 3.0.0-20160824git3f83cde
 
-* Mon Aug 15 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-9-20160815git81bb542
+* Mon Aug 15 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-9-20160815git81bb542
 - Updated 3.0.0-20160815git81bb542
 
-* Fri Jul 08 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-8-20160708gitca134b9
+* Fri Jul 08 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-8-20160708gitca134b9
 - Rebuilt for FFmpeg 3.1
 
 * Sun Jun 26 2016 The UnitedRPMs Project (Key for UnitedRPMs infrastructure) <unitedrpms@protonmail.com> - 3.0.0-7.20160608gitbb83680
 - Rebuild with new ffmpeg
 
-* Wed Jun 08 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-6-20160608-bb83680
+* Wed Jun 08 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-6-20160608-bb83680
 - Updated to 3.0.0-20160608-bb83680
 - Solved librdp lost
 
-* Sat May 07 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-5-20160506-fa5c292
+* Sat May 07 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-5-20160506-fa5c292
 - Conditional build for freerdp
 
-* Fri May 06 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-4-20160506-fa5c292
+* Fri May 06 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-4-20160506-fa5c292
 - Updated to 3.0.0-20160506-fa5c292
 - Disabled opencv for compatibility
 
-* Tue Apr 26 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-20160426-9ce2d2e-3
+* Tue Apr 26 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-20160426-9ce2d2e-3
 - Updated to 3.0.0-20160426-9ce2d2e
 
-* Tue Apr 26 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-20160426-9ce2d2e-2
+* Tue Apr 26 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-20160426-9ce2d2e-2
 - Updated to 3.0.0-20160426-9ce2d2e
 
-* Mon Feb 29 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 3.0.0-20160229-10f9493-1
+* Mon Feb 29 2016 David Vásquez <davidva AT tutanota DOT com> 3.0.0-20160229-10f9493-1
 - Updated to 3.0.0-20160229-10f9493
 
-* Mon Feb 08 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 2.2.2-2
+* Mon Feb 08 2016 David Vásquez <davidva AT tutanota DOT com> 2.2.2-2
 - Updated to 2.2.2
 
-* Tue Jul 14 2015 David Vásquez <davidjeremias82 AT gmail DOT com> - 2.2.1-1
+* Tue Jul 14 2015 David Vásquez <davidva AT tutanota DOT com> - 2.2.1-1
 - Updated to 2.2.1 
 
-* Mon Mar 23 2015 David Vásquez <davidjeremias82 AT gmail DOT com> - 2.2.0-2
+* Mon Mar 23 2015 David Vásquez <davidva AT tutanota DOT com> - 2.2.0-2
 - Updated to 2.2.0 final release
 - Enabled freerdp ver.1
 - Upstream
