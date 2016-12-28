@@ -440,7 +440,7 @@ fi || :
 %{_libdir}/vlc/plugins/video_output/libcaca_plugin.so
 %{!?_without_xcb:
 %{_libdir}/vlc/plugins/access/libxcb_screen_plugin.so
-%{_libdir}/vlc/plugins/video_output/libxcb_glx_plugin.so
+#%{_libdir}/vlc/plugins/video_output/libxcb_glx_plugin.so
 %{_libdir}/vlc/plugins/video_output/libxcb_x11_plugin.so
 %{_libdir}/vlc/plugins/video_output/libxcb_window_plugin.so
 %{_libdir}/vlc/plugins/video_output/libxcb_xv_plugin.so
