@@ -1,5 +1,5 @@
 #globals for vlc-3.0.0-20161122-ccfdb5a.tar.xz
-%global gitdate 20161222
+%global gitdate 20161228
 %global gitversion 368f85d
 %global snapshot %{gitdate}-%{gitversion}
 %global gver .%{gitdate}git%{gitversion}
@@ -33,7 +33,7 @@ Release:	16%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:	https://transfer.sh/yIdMp/vlc-3.0.0-20161222-368f85d.tar.xz
+Source0:	https://transfer.sh/2OZpU/vlc-3.0.0-20161228-345754b.tar.xz
 Source1: 	https://raw.githubusercontent.com/UnitedRPMs/vlc/master/vlc-snapshot.sh
 
 BuildRequires:	desktop-file-utils
@@ -546,8 +546,8 @@ fi || :
 
 
 %changelog
-* Thu Dec 22 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-16
-- Updated to 20161222
+* Wed Dec 28 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-16
+- Updated to 20161228
 
 * Tue Nov 22 2016 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-15-20161122gitccfdb5a
 - Reverted source, the commit is incomplete
