@@ -5,7 +5,7 @@ sudo: required
 services:
   - docker
 script:
-  - wget -q https://github.com/paulcarroty/mock-travis/releases/download/nologs/mock-travis 
+  - wget -q https://github.com/paulcarroty/mock-travis/releases/download/stable/mock-travis 
     && chmod +x mock-travis 
     && ./mock-travis
 
