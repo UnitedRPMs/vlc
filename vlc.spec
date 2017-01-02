@@ -6,7 +6,7 @@
 
 %bcond_without workaround_circle_deps 
 %bcond_without codecs
-%bcond_without vaapi
+%bcond_with vaapi
 %bcond_without ffmpeg
 # yes, libav
 %bcond_with libav 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	16%{?gver}%{?dist}
+Release:	17%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -198,7 +198,9 @@ BuildRequires: x265-devel
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 0-0.33
 BuildRequires: libmpg123-devel
-#
+BuildRequires: wayland-devel
+BuildRequires: qt5-qtwayland-devel
+BuildRequires: wayland-protocols-devel
 
 # Chromecast
 BuildRequires:  protobuf-lite-devel
@@ -216,8 +218,9 @@ Requires: libvdpau-va-gl
 %endif
 #For xdg-sreensaver
 Requires: xdg-utils
-
-
+Requires: libwayland-cursor
+Requires: libwayland-client
+Requires: qt5-qtwayland
 
 %description
 VLC media player is a highly portable multimedia player and multimedia framework
@@ -546,8 +549,10 @@ fi || :
 
 
 %changelog
-* Wed Dec 28 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-16
+* Wed Dec 28 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-17
 - Updated to 20161228
+- enable vaapi
+- added Wayland depends
 
 * Tue Nov 22 2016 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-15-20161122gitccfdb5a
 - Reverted source, the commit is incomplete
