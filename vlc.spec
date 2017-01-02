@@ -202,6 +202,10 @@ BuildRequires: libmpg123-devel
 BuildRequires: wayland-devel
 BuildRequires: qt5-qtwayland-devel
 BuildRequires: wayland-protocols-devel
+BuildRequires: libdrm-devel
+BuildRequires: libX11-devel
+BuildRequires: libva-devel
+
 
 # Chromecast
 BuildRequires:  protobuf-lite-devel
