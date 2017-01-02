@@ -1,5 +1,5 @@
 #globals for vlc-3.0.0-20161122-ccfdb5a.tar.xz
-%global gitdate 20161228
+%global gitdate 20170102
 %global gitversion 368f85d
 %global snapshot %{gitdate}-%{gitversion}
 %global gver .%{gitdate}git%{gitversion}
@@ -550,7 +550,7 @@ fi || :
 
 
 %changelog
-* Mon Jan 02 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-18
+* Mon Jan 2 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-18
 - Updated to the latest snapshot
 
 * Wed Dec 28 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-17
