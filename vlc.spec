@@ -29,11 +29,11 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	17%{?gver}%{?dist}
+Release:	18%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:	https://transfer.sh/2OZpU/vlc-3.0.0-20161228-345754b.tar.xz
+Source0:	https://transfer.sh/U3KxD/vlc-3.0.0-20170102-6063682.tar.xz
 Source1: 	https://raw.githubusercontent.com/UnitedRPMs/vlc/master/vlc-snapshot.sh
 
 BuildRequires:	desktop-file-utils
@@ -120,6 +120,7 @@ BuildRequires:	libupnp-devel
 BuildRequires:	libv4l-devel
 %if %{with vaapi}
 BuildRequires:  libva-devel
+BuildRequires:  gstreamer1-vaapi
 %endif
 %if %{with vdpau}
 BuildRequires:  pkgconfig(vdpau)
@@ -549,6 +550,9 @@ fi || :
 
 
 %changelog
+* Mon Jan 02 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-18
+- Updated to the latest snapshot
+
 * Wed Dec 28 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-17
 - Updated to 20161228
 - enable vaapi
