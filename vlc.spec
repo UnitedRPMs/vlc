@@ -550,7 +550,7 @@ fi || :
 
 
 %changelog
-* Mon Jan 2 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-18
+* Mon Jan 2 2017 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-18
 - Updated to the latest snapshot
 
 * Wed Dec 28 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-17
