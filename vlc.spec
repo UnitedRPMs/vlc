@@ -1,6 +1,6 @@
-#globals for vlc-3.0.0-20161122-ccfdb5a.tar.xz
-%global gitdate 20170102
-%global gitversion 368f85d
+#globals for vlc-3.0.0-20170104-f8f5395.tar.xz
+%global gitdate 20170104
+%global gitversion f8f5395
 %global snapshot %{gitdate}-%{gitversion}
 %global gver .%{gitdate}git%{gitversion}
 
@@ -29,11 +29,11 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	18%{?gver}%{?dist}
+Release:	19%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:	https://transfer.sh/U3KxD/vlc-3.0.0-20170102-6063682.tar.xz
+Source0:	https://transfer.sh/11g2QT/vlc-3.0.0-20170104-f8f5395.tar.xz
 Source1: 	https://raw.githubusercontent.com/UnitedRPMs/vlc/master/vlc-snapshot.sh
 
 BuildRequires:	desktop-file-utils
@@ -199,13 +199,16 @@ BuildRequires: x265-devel
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 0-0.33
 BuildRequires: libmpg123-devel
-BuildRequires: wayland-devel
-BuildRequires: qt5-qtwayland-devel
-BuildRequires: wayland-protocols-devel
+
 BuildRequires: libdrm-devel
 BuildRequires: libX11-devel
 BuildRequires: libva-devel
 
+# Wayland support
+BuildRequires: pkgconfig(wayland-egl)
+BuildRequires: wayland-devel
+BuildRequires: qt5-qtwayland-devel
+BuildRequires: wayland-protocols-devel
 
 # Chromecast
 BuildRequires:  protobuf-lite-devel
@@ -347,6 +350,7 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
    	--with-default-font=%{_datadir}/fonts/truetype/FreeSerifBold.ttf \
    	--with-default-monospace-font=%{_datadir}/fonts/truetype/FreeMono.ttf \
 	--disable-oss 				\
+	--enable-wayland			\
 %if %{with freerdp}
 	--enable-freerdp			\
 %endif					 
@@ -554,6 +558,11 @@ fi || :
 
 
 %changelog
+
+* Wed Jan 04 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-19-20170104gitf8f5395
+- Enabled Wayland support
+- Updated to 3.0.0-20170104gitf8f5395, solved some issues with mp4
+
 * Mon Jan 2 2017 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-18
 - Updated to the latest snapshot
 
