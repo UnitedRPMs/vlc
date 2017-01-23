@@ -1,0 +1,13 @@
+--- share/vlc.desktop.in	2017-01-23 12:21:11.000000000 -0600
++++ vlc.desktop-new.in	2017-01-23 13:02:08.910230477 -0600
+@@ -82,8 +82,8 @@
+ Name[zh_CN]=VLC media player
+ GenericName[zh_CN]=媒体播放器
+ Comment[zh_CN]=为您读取、捕获或发送多媒体流
+-Exec=@bindir@/vlc --started-from-file %U
+-TryExec=@bindir@/vlc
++Exec=sh -c "QT_AUTO_SCREEN_SCALE_FACTOR=0 && @bindir@/vlc --started-from-file %U"
++TryExec=sh -c "QT_AUTO_SCREEN_SCALE_FACTOR=1 && @bindir@/vlc --started-from-file %U"
+ Icon=vlc
+ Terminal=false
+ Type=Application

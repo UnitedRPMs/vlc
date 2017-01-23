@@ -1,6 +1,6 @@
-#globals for vlc-3.0.0-20170104-f8f5395.tar.xz
-%global gitdate 20170104
-%global gitversion f8f5395
+#globals for vlc-3.0.0-20170123-58baf1d.tar.xz
+%global gitdate 20170123
+%global gitversion 58baf1d
 %global snapshot %{gitdate}-%{gitversion}
 %global gver .%{gitdate}git%{gitversion}
 
@@ -29,12 +29,13 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	19%{?gver}%{?dist}
+Release:	20%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:	https://transfer.sh/11g2QT/vlc-3.0.0-20170104-f8f5395.tar.xz
-Source1: 	https://raw.githubusercontent.com/UnitedRPMs/vlc/master/vlc-snapshot.sh
+Source0:	https://transfer.sh/uel3V/vlc-3.0.0-20170123-58baf1d.tar.xz
+Source1: 	vlc-snapshot.sh
+Patch:		HiDPIqt5.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -290,9 +291,9 @@ modules).
 %prep
 
 %setup -n %{name}
+%patch -p0
 
 ./bootstrap
-
 
 %build
 
@@ -351,6 +352,10 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
    	--with-default-monospace-font=%{_datadir}/fonts/truetype/FreeMono.ttf \
 	--disable-oss 				\
 	--enable-wayland			\
+	--enable-nls 				\
+	--enable-opus				\
+	--enable-upnp 				\
+	--enable-vcdx 				\
 %if %{with freerdp}
 	--enable-freerdp			\
 %endif					 
@@ -558,6 +563,14 @@ fi || :
 
 
 %changelog
+
+* Mon Jan 23 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-21-20170123gi58baf1d
+- Updated to 3.0.0-20170123gi58baf1d
+- Patch with partial solution for HiDPI and qt5, see https://wiki.archlinux.org/index.php/HiDPI#VLC
+
+* Thu Jan 19 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-20-20170119git7641f2b
+- Updated to 3.0.0-20170119git7641f2b
+- Solved some issues with live555
 
 * Wed Jan 04 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-19-20170104gitf8f5395
 - Enabled Wayland support
