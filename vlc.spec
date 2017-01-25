@@ -29,13 +29,12 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	21%{?gver}%{?dist}
+Release:	22%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://transfer.sh/uel3V/vlc-3.0.0-20170123-58baf1d.tar.xz
 Source1: 	vlc-snapshot.sh
-Patch:		HiDPIqt5.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -291,7 +290,6 @@ modules).
 %prep
 
 %setup -n %{name}
-%patch -p0
 
 ./bootstrap
 
@@ -385,6 +383,10 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/vlc
 
 #Ghost the plugins cache
 touch $RPM_BUILD_ROOT%{_libdir}/vlc/plugins.dat
+
+GCOM=$( sed -n '/Exec=/=' $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop | sort | head -1 )
+sed -i "${GCOM}s/Exec=/Exec=sh -c \"QT_AUTO_SCREEN_SCALE_FACTOR=0 /" $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop
+sed -i "${GCOM}s/%U/%U\"/" $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop
 
 
 %find_lang %{name}
@@ -561,8 +563,10 @@ fi || :
 %endif
 
 
-
 %changelog
+
+* Tue Jan 24 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-22-20170123gi58baf1d
+- Solved mime issues
 
 * Mon Jan 23 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-21-20170123gi58baf1d
 - Updated to 3.0.0-20170123gi58baf1d
