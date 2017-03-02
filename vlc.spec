@@ -1,6 +1,6 @@
-#globals for vlc-3.0.0-20170226-cb30cb2.tar.xz
-%global gitdate 20170226
-%global gitversion cb30cb2
+#globals for vlc-3.0.0-20170302-989bc9d.tar.xz
+%global gitdate 20170302
+%global gitversion 989bc9d
 %global snapshot %{gitdate}-%{gitversion}
 %global gver .%{gitdate}git%{gitversion}
 
@@ -29,11 +29,11 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	23%{?gver}%{?dist}
+Release:	24%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:	https://transfer.sh/6gJjR/vlc-3.0.0-20170226-cb30cb2.tar.xz
+Source0:	https://transfer.sh/10VYBw/vlc-3.0.0-20170302-989bc9d.tar.xz
 Source1: 	vlc-snapshot.sh
 
 BuildRequires:	desktop-file-utils
@@ -198,7 +198,7 @@ BuildRequires: x264-devel >= 0-0.8.20061028
 BuildRequires: x265-devel
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 0-0.33
-BuildRequires: libmpg123-devel
+BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
 BuildRequires: libX11-devel
@@ -564,6 +564,9 @@ fi || :
 
 
 %changelog
+
+* Thu Mar 02 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-24-20170302git989bc9d
+- Updated to 3.0.0-24-20170302git989bc9d
 
 * Sun Feb 26 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-23-20170123gi58baf1d
 - Updated to 3.0.0-23-20170226gitcb30cb2
