@@ -292,15 +292,18 @@ modules).
 %autosetup -n vlc-%{commit0} 
 
 # Our trick; the tarball doesn't download completely the source; vlc needs some data from .git
+# The git vesion in F24 no accept the git checkout --force %{commit0}; only the master 
+# Please in each rebuild make a updating with the current commit
 git init
 git add .
 git remote add origin https://github.com/videolan/vlc.git
 # git remote update 
 git fetch --depth=1 origin master
-#if 0%{?fedora} >= 25
+%if 0%{?fedora} >= 25
+git checkout --force %{commit0}
+%else
 git checkout --force master
-#endif
-
+%endif
 
 ./bootstrap
 
