@@ -293,9 +293,13 @@ modules).
 
 # Our trick; the tarball doesn't download completely the source; vlc needs some data from .git
 git init
+git add .
 git remote add origin https://github.com/videolan/vlc.git
+# git remote update 
 git fetch --depth=1 origin master
+%if 0%{?fedora} >= 25
 git checkout --force %{commit0}
+%endif
 
 ./bootstrap
 
