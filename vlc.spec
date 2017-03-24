@@ -300,6 +300,7 @@ git fetch --depth=1 origin master
 %if 0%{?fedora} >= 25
 git checkout --force %{commit0}
 %endif
+git pull --force origin master
 
 ./bootstrap
 
