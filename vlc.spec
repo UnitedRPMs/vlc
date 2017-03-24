@@ -1,8 +1,8 @@
-#globals for vlc-3.0.0-20170318-508452a.tar.xz
-%global gitdate 20170318
-%global gitversion 508452a
-%global snapshot %{gitdate}-%{gitversion}
-%global gver .%{gitdate}git%{gitversion}
+#globals for vlc-3.0.0-20170323-4c63614.tar.xz
+%global gitdate 20170323
+%global commit0 4c6361423970773ac2ef9974140b709587df2e18
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global gver .%{gitdate}git%{shortcommit0}
 
 %bcond_without workaround_circle_deps 
 %bcond_without codecs
@@ -29,11 +29,11 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	27%{?gver}%{?dist}
+Release:	28%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:	https://transfer.sh/8XayP/vlc-3.0.0-20170318-508452a.tar.xz
+Source0:	https://github.com/videolan/vlc/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1: 	vlc-snapshot.sh
 
 BuildRequires:	desktop-file-utils
@@ -289,7 +289,13 @@ modules).
 
 %prep
 
-%setup -n %{name}
+%autosetup -n vlc-%{commit0} 
+
+# Our trick; the tarball doesn't download completely the source; vlc needs some data from .git
+git init
+git remote add origin https://github.com/videolan/vlc.git
+git fetch --depth=1 origin master
+git checkout --force %{commit0}
 
 ./bootstrap
 
@@ -564,6 +570,10 @@ fi || :
 
 
 %changelog
+
+* Thu Mar 23 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-28-20170323git4c63614
+- Updated to 3.0.0-28-20170323git4c63614
+- New changes in source
 
 * Sat Mar 18 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-27-20170318git508452a
 - Updated to 3.0.0-27-20170318git508452a
