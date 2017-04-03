@@ -1,6 +1,6 @@
-#globals for vlc-3.0.0-20170323-4c63614.tar.xz
-%global gitdate 20170323
-%global commit0 4c6361423970773ac2ef9974140b709587df2e18
+#globals for vlc-3.0.0-20170403-6fc45a5.tar.xz
+%global gitdate 20170403
+%global commit0 6fc45a5b72d7a3c88ab3bc8fc3723b34c782faa3
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .%{gitdate}git%{shortcommit0}
 
@@ -29,12 +29,13 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	28%{?gver}%{?dist}
+Release:	29%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1: 	vlc-snapshot.sh
+Patch:		hDpi.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -289,7 +290,7 @@ modules).
 
 %prep
 
-%autosetup -n vlc-%{commit0} 
+%setup -n vlc-%{commit0} 
 
 # Our trick; the tarball doesn't download completely the source; vlc needs some data from .git
 # The git vesion in F24 no accept the git checkout --force %{commit0}; only the master 
@@ -304,6 +305,8 @@ git checkout --force %{commit0}
 %else
 git checkout --force master
 %endif
+
+%patch -p0
 
 ./bootstrap
 
@@ -398,9 +401,10 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/vlc
 #Ghost the plugins cache
 touch $RPM_BUILD_ROOT%{_libdir}/vlc/plugins.dat
 
-GCOM=$( sed -n '/Exec=/=' $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop | sort | head -1 )
-sed -i "${GCOM}s/Exec=/Exec=sh -c \"QT_AUTO_SCREEN_SCALE_FACTOR=0 /" $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop
-sed -i "${GCOM}s/%U/%U\"/" $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop
+# hDpi solve the problem with files, thunar but in dolphin doesn't work
+#GCOM=$( sed -n '/Exec=/=' $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop | sort | head -1 )
+#sed -i "${GCOM}s/Exec=/Exec=sh -c \"QT_AUTO_SCREEN_SCALE_FACTOR=0 /" $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop
+#sed -i "${GCOM}s/%U/%U\"/" $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop
 
 
 %find_lang %{name}
@@ -578,6 +582,9 @@ fi || :
 
 
 %changelog
+
+* Mon Apr 03 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-29-20170403git6fc45a5
+- Updated to 3.0.0-29-20170403git6fc45a5
 
 * Thu Mar 23 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-28-20170323git4c63614
 - Updated to 3.0.0-28-20170323git4c63614

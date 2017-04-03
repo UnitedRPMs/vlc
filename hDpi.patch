@@ -1,0 +1,13 @@
+--- modules/gui/qt/qt.cpp	2017-04-03 07:38:39.000000000 -0600
++++ qt_new.cpp	2017-04-03 12:55:48.500282389 -0600
+@@ -526,10 +526,6 @@
+ 
+     Q_INIT_RESOURCE( vlc );
+ 
+-#if HAS_QT56
+-    QApplication::setAttribute( Qt::AA_EnableHighDpiScaling );
+-#endif
+-
+     /* Start the QApplication here */
+     QVLCApp app( argc, argv );
+ 
