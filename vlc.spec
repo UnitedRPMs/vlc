@@ -581,7 +581,7 @@ fi || :
 
 
 %changelog
-* Thu Apr 06 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-30
+* Thu Apr 06 2017 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-30
 - Updated to 20160406
 - Fixed nonexistent commit from vlc master
 
