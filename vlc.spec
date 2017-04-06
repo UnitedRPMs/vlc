@@ -1,5 +1,5 @@
 %global gitdate 20170406
-%global commit0 07e803839a3038afb0b0a42a5dceef642faf847a
+%global commit0 ed565218e021d11e3df0728e030e4d6e43f8e2fa
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .%{gitdate}git%{shortcommit0}
 
