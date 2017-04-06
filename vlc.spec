@@ -289,7 +289,7 @@ modules).
 
 %prep
 
-%setup -n vlc-%{commit0} 
+%autosetup -n vlc-%{commit0} 
 
 # Our trick; the tarball doesn't download completely the source; vlc needs some data from .git
 # The git vesion in F24 no accept the git checkout --force %{commit0}; only the master 
