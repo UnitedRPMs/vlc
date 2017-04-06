@@ -1,6 +1,5 @@
-#globals for vlc-3.0.0-20170403-6fc45a5.tar.xz
-%global gitdate 20170403
-%global commit0 6fc45a5b72d7a3c88ab3bc8fc3723b34c782faa3
+%global gitdate 20170406
+%global commit0 07e803839a3038afb0b0a42a5dceef642faf847a
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .%{gitdate}git%{shortcommit0}
 
@@ -29,7 +28,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	29%{?gver}%{?dist}
+Release:	30%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -582,6 +581,9 @@ fi || :
 
 
 %changelog
+* Thu Apr 06 2016 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-30
+- Updated to 20160406
+- Fixed nonexistent commit from vlc master
 
 * Mon Apr 03 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-29-20170403git6fc45a5
 - Updated to 3.0.0-29-20170403git6fc45a5
