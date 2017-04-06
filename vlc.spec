@@ -34,7 +34,7 @@ Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1: 	vlc-snapshot.sh
-Patch:		hDpi.patch
+#Patch:		hDpi.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -305,7 +305,7 @@ git checkout --force %{commit0}
 git checkout --force master
 %endif
 
-%patch -p0
+#%patch -p0
 
 ./bootstrap
 
