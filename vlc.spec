@@ -300,7 +300,7 @@ git remote add origin https://github.com/videolan/vlc.git
 # git remote update 
 git fetch --depth=1 origin master
 %if 0%{?fedora} >= 25
-git checkout --force %{commit0}
+git checkout --force %{commit0} || git checkout --force master
 %else
 git checkout --force master
 %endif
