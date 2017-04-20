@@ -28,7 +28,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	31%{?gver}%{?dist}
+Release:	32%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -581,6 +581,9 @@ fi || :
 
 
 %changelog
+
+* Wed Apr 19 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-32.20170417git4a4e0c5  
+- Automatic Mass Rebuild
 
 * Mon Apr 17 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-31-20170417git4a4e0c5
 - Updated to 3.0.0-31-20170417git4a4e0c5
