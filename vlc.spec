@@ -1,7 +1,7 @@
-%global gitdate 20170417
-%global commit0 4a4e0c58606dccbb829e726337e0d688eb35adb6
+%global gitdate 20170428
+%global commit0 7305bf34d8a990f1e7f46cdebf0fbb05d2df5660
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gver .%{gitdate}git%{shortcommit0}
+%global gver .git%{shortcommit0}
 
 %bcond_without workaround_circle_deps 
 %bcond_without codecs
@@ -28,7 +28,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	32%{?gver}%{?dist}
+Release:	33%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -229,6 +229,10 @@ Requires: xdg-utils
 Requires: libwayland-cursor
 Requires: libwayland-client
 Requires: qt5-qtwayland
+
+# Play encrypted Blu-ray discs
+Recommends: libaacs
+Recommends: libbdplus
 
 %description
 VLC media player is a highly portable multimedia player and multimedia framework
@@ -581,6 +585,9 @@ fi || :
 
 
 %changelog
+
+* Fri Apr 28 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-33-git7305bf3
+- Updated to 3.0.0-33-git7305bf3
 
 * Wed Apr 19 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-32.20170417git4a4e0c5  
 - Automatic Mass Rebuild
