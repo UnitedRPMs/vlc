@@ -1,6 +1,6 @@
 #		vlc
 
-[![Build Status](https://travis-ci.org/UnitedRPMs/vlc.svg?branch=master)](https://travis-ci.org/UnitedRPMs/vlc)
+[![Build Status](https://travis-ci.org/muchpack/vlc.svg?branch=master)](https://travis-ci.org/muchpack/vlc)
  
 Summary:	The cross-platform open-source multimedia framework, player and server.
  
