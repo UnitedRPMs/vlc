@@ -13,7 +13,7 @@ before_install:
 script:
 # ENABLE tne next line and delete add a "#" the next lines; if you want build with mock
 #- travis_wait 40 docker run --cap-add=SYS_ADMIN davidva/unibuild /bin/sh /urpms -g UnitedRPMs/spotify -s spotify.spec -t fedora-25-x86_64
-- "docker run -v $(pwd):/root/enjoy --cap-add=SYS_ADMIN davidva/unibuild /bin/sh /urpms -g muchpack/vlc -s vlc.spec -r true -d 'dist .fc25'"
+- "docker run -v $(pwd):/root/enjoy --cap-add=SYS_ADMIN davidva/unibuild /bin/sh /urpms -g UnitedRPMs/vlc -s vlc.spec -r true -d 'dist .fc25'"
 notifications:
-  email: muchpack@tutanota.com
+  email: davidva@tutanota.com
 ##  slack: muchpack:lzDykHTpajKrgmGz9NkrO1Hj
