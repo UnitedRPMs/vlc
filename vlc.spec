@@ -1,5 +1,5 @@
-%global gitdate 20170428
-%global commit0 7305bf34d8a990f1e7f46cdebf0fbb05d2df5660
+%global gitdate 20170519
+%global commit0 44019727be2a005a63cb9070682293d0bfdff201
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -28,7 +28,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	33%{?gver}%{?dist}
+Release:	34%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -585,6 +585,9 @@ fi || :
 
 
 %changelog
+
+* Fri May 19 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-34-git4401972
+- Updated to 3.0.0-34-git4401972
 
 * Fri Apr 28 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-33-git7305bf3
 - Updated to 3.0.0-33-git7305bf3
