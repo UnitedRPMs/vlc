@@ -469,6 +469,7 @@ fi || :
 %{_datadir}/icons/hicolor/*/apps/vlc*.xpm
 %{_datadir}/vlc/skins2/
 %{_datadir}/appdata/vlc.appdata.xml
+%{_datadir}/macosx/
 %{_bindir}/qvlc
 %{_bindir}/svlc
 %{_libdir}/vlc/plugins/gui/libqt_plugin.so
@@ -527,7 +528,7 @@ fi || :
 %endif
 %exclude %{_libdir}/vlc/plugins/video_output/libaa_plugin.so
 %exclude %{_libdir}/vlc/plugins/video_output/libcaca_plugin.so
-%exclude %{_libdir}/vlc/plugins/video_output/libxcb_glx_plugin.so
+#exclude %{_libdir}/vlc/plugins/video_output/libxcb_glx_plugin.so
 %exclude %{_libdir}/vlc/plugins/video_output/libxcb_x11_plugin.so
 %exclude %{_libdir}/vlc/plugins/video_output/libxcb_window_plugin.so
 %exclude %{_libdir}/vlc/plugins/video_output/libxcb_xv_plugin.so
