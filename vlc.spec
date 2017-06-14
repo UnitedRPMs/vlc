@@ -1,5 +1,5 @@
-%global gitdate 20170519
-%global commit0 44019727be2a005a63cb9070682293d0bfdff201
+%global gitdate 20170613
+%global commit0 78d3459ccc969f5cc210a58813558398290ae670
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -28,12 +28,11 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	34%{?gver}%{?dist}
+Release:	36%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-Source1: 	vlc-snapshot.sh
 #Patch:		hDpi.patch
 
 BuildRequires:	desktop-file-utils
@@ -586,16 +585,19 @@ fi || :
 
 %changelog
 
+* Tue Jun 13 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-36-git78d3459
+- Updated to 3.0.0-36-git78d3459
+
 * Fri May 19 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-34-git4401972
 - Updated to 3.0.0-34-git4401972
 
 * Fri Apr 28 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-33-git7305bf3
 - Updated to 3.0.0-33-git7305bf3
 
-* Wed Apr 19 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-32.20170417git4a4e0c5  
+* Wed Apr 19 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-32.git4a4e0c5  
 - Automatic Mass Rebuild
 
-* Mon Apr 17 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-31-20170417git4a4e0c5
+* Mon Apr 17 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-31.git4a4e0c5
 - Updated to 3.0.0-31-20170417git4a4e0c5
 
 * Thu Apr 06 2017 Pavlo Rudyi <paulcarroty at riseup.net> - 3.0.0-30
