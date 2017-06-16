@@ -33,7 +33,6 @@ License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-Source1:	vlc-snapshot
 #Patch:		hDpi.patch
 
 BuildRequires:	desktop-file-utils
@@ -293,12 +292,21 @@ modules).
 
 %prep
 
-# Our trick; the tarball doesn't download completely the source code; vlc needs some data from .git
-# the script make it for us.
+%autosetup -n vlc-%{commit0} 
 
-%{S:1} -c %{commit0}
-
-%setup -T -D -n vlc-%{shortcommit0}
+# Our trick; the tarball doesn't download completely the source; vlc needs some data from .git
+# The git vesion in F24 no accept the git checkout --force %{commit0}; only the master 
+# Please in each rebuild make a updating with the current commit
+git init
+git add .
+git remote add origin https://github.com/videolan/vlc.git
+# git remote update 
+git fetch --depth=1 origin master
+%if 0%{?fedora} >= 25
+git checkout --force %{commit0} || git checkout --force master
+%else
+git checkout --force master
+%endif
 
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
 sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
