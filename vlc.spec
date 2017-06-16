@@ -298,7 +298,7 @@ modules).
 
 %{S:1} -c %{commit0}
 
-%autosetup -n vlc-%{shortcommit0}
+%setup -T -D -n vlc-%{shortcommit0}
 
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
 sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
