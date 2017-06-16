@@ -33,7 +33,6 @@ name=vlc
 
 rm -rf ${name}-${shortcommit}/
 rm -f ${name}-${shortcommit}.tar.gz
-git config --global --unset https.proxy
 git clone --depth 1 https://github.com/videolan/vlc.git ${name}-${shortcommit}
 pushd ${name}-${shortcommit}
 git checkout --force ${commit} 
