@@ -309,7 +309,8 @@ git checkout --force master
 %endif
 
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
-sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
+#sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
+sed -i '/QApplication::setAttribute( Qt::AA_EnableHighDpiScaling )/d' modules/gui/qt/qt.cpp
 
 ./bootstrap
 
