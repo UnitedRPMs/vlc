@@ -34,6 +34,7 @@ name=vlc
 rm -rf ${name}-${shortcommit}/
 rm -f ${name}-${shortcommit}.tar.gz
 git clone --depth 1 https://github.com/videolan/vlc.git ${name}-${shortcommit}
+git fetch --depth=1 origin master
 pushd ${name}-${shortcommit}
 git checkout --force ${commit} 
 popd
