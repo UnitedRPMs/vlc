@@ -1,5 +1,5 @@
-%global gitdate 20170613
-%global commit0 78d3459ccc969f5cc210a58813558398290ae670
+%global gitdate 20170615
+%global commit0 86f6ef18909e496ead084bab13fb6f5f0b968d07
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -28,11 +28,12 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	36%{?gver}%{?dist}
+Release:	37%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source1:	vlc-snapshot
 #Patch:		hDpi.patch
 
 BuildRequires:	desktop-file-utils
@@ -292,23 +293,15 @@ modules).
 
 %prep
 
-%autosetup -n vlc-%{commit0} 
+# Our trick; the tarball doesn't download completely the source code; vlc needs some data from .git
+# the script make it for us.
 
-# Our trick; the tarball doesn't download completely the source; vlc needs some data from .git
-# The git vesion in F24 no accept the git checkout --force %{commit0}; only the master 
-# Please in each rebuild make a updating with the current commit
-git init
-git add .
-git remote add origin https://github.com/videolan/vlc.git
-# git remote update 
-git fetch --depth=1 origin master
-%if 0%{?fedora} >= 25
-git checkout --force %{commit0} || git checkout --force master
-%else
-git checkout --force master
-%endif
+%{S:1} -c %{commit0}
 
-#%patch -p0
+%autosetup -n vlc-%{shortcommit0}
+
+# qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
+sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
 
 ./bootstrap
 
@@ -585,6 +578,9 @@ fi || :
 
 
 %changelog
+
+* Tue Jun 13 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-37-git86f6ef1
+- Updated to 3.0.0-37-git86f6ef1
 
 * Tue Jun 13 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-36-git78d3459
 - Updated to 3.0.0-36-git78d3459

@@ -1,0 +1,42 @@
+#!/bin/bash
+
+readargs() {
+  while [ "$#" -gt 0 ] ; do
+    case "$1" in
+       -c)
+        if [ "$2" ] ; then
+          commit="$2"
+          shift ; shift
+        else
+          echo "Missing a value for $1."
+          echo
+          shift
+          usage
+exit
+        fi
+      ;;
+      *)
+        echo "Unknown option or argument $1."
+        echo
+        shift
+        usage
+      exit
+      ;;
+    esac
+  done
+}
+
+#  BEGIN THE PROGRAM
+readargs "$@"
+shortcommit=$( echo ${commit} | cut -c 1-7)
+name=vlc
+
+rm -rf ${name}-${shortcommit}/
+rm -f ${name}-${shortcommit}.tar.gz
+git config --global --unset https.proxy
+git clone --depth 1 https://github.com/videolan/vlc.git ${name}-${shortcommit}
+pushd ${name}-${shortcommit}
+git checkout --force ${commit} 
+popd
+tar -cvzf ${name}-${shortcommit}.tar.gz ${name}-${shortcommit}
+
