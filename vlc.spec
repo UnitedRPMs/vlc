@@ -1,11 +1,12 @@
-%global gitdate 20170615
-%global commit0 86f6ef18909e496ead084bab13fb6f5f0b968d07
+%global gitdate 20170618
+%global commit0 f8b5c60da7d3dce5762758853d606eea3aa21e79
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 %bcond_without workaround_circle_deps 
 %bcond_without codecs
 %bcond_with vaapi
+%bcond_with wayland
 %bcond_without ffmpeg
 # yes, libav
 %bcond_with libav 
@@ -33,6 +34,7 @@ License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source1:	vlc-snapshot
 #Patch:		hDpi.patch
 
 BuildRequires:	desktop-file-utils
@@ -118,7 +120,7 @@ BuildRequires:	pkgconfig(libvncclient)
 BuildRequires:	libupnp-devel
 BuildRequires:	libv4l-devel
 %if %{with vaapi}
-BuildRequires:  libva-devel
+BuildRequires:  pkgconfig(libva)
 BuildRequires:  gstreamer1-vaapi
 %endif
 %if %{with vdpau}
@@ -201,16 +203,21 @@ BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
 BuildRequires: libX11-devel
-BuildRequires: libva-devel
+BuildRequires:  pkgconfig(libv4l2)
 
 # Wayland support
+%if %{with wayland}
 BuildRequires: pkgconfig(wayland-egl)
 BuildRequires: wayland-devel
 BuildRequires: qt5-qtwayland-devel
 BuildRequires: wayland-protocols-devel
+%endif
 
 # Chromecast
 BuildRequires:  protobuf-lite-devel
+
+# NEW
+BuildRequires: cmake
 
 Provides: %{name}-xorg%{_isa} = %{version}-%{release}
 Requires: vlc-core%{_isa} = %{version}-%{release}
@@ -225,9 +232,12 @@ Requires: libvdpau-va-gl
 %endif
 #For xdg-sreensaver
 Requires: xdg-utils
+
+%if %{with wayland}
 Requires: libwayland-cursor
 Requires: libwayland-client
 Requires: qt5-qtwayland
+%endif
 
 # Play encrypted Blu-ray discs
 Recommends: libaacs
@@ -292,25 +302,28 @@ modules).
 
 %prep
 
-%autosetup -n vlc-%{commit0} 
+# Our trick; the tarball doesn't download completely the source code; vlc needs some data from .git
+# the script makes it for us.
 
-# Our trick; the tarball doesn't download completely the source; vlc needs some data from .git
-# The git vesion in F24 no accept the git checkout --force %{commit0}; only the master 
-# Please in each rebuild make a updating with the current commit
-git init
-git add .
-git remote add origin https://github.com/videolan/vlc.git
-# git remote update 
-git fetch --depth=1 origin master
-%if 0%{?fedora} >= 25
-git checkout --force %{commit0} || git checkout --force master
-%else
-git checkout --force master
-%endif
+%{S:1} -c %{commit0}
+
+%setup -T -D -n vlc-%{shortcommit0}
 
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
-#sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
-sed -i '/QApplication::setAttribute( Qt::AA_EnableHighDpiScaling )/d' modules/gui/qt/qt.cpp
+sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
+
+# We need said to bootstrap our gcc
+echo '********* BOOTSTRAPPING *********'
+date
+test -x "$(type -p gcc-5)" && export BUILDCC=gcc-5
+test -x "$(type -p gcc-5)" && export CC=gcc-5
+test -x "$(type -p g++-5)" && export CXX=g++-5
+test -x "$(type -p gcc-6)" && export BUILDCC=gcc-6
+test -x "$(type -p gcc-6)" && export CC=gcc-6
+test -x "$(type -p g++-6)" && export CXX=g++-6
+test -x "$(type -p gcc-7)" && export BUILDCC=gcc-7
+test -x "$(type -p gcc-7)" && export CC=gcc-7
+test -x "$(type -p g++-7)" && export CXX=g++-7
 
 ./bootstrap
 
@@ -360,6 +373,7 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
    	--enable-dca				\
    	--enable-twolame			\
    	--enable-live555			\
+   	--enable-v4l2				\
 %if %{with vdpau}
 	--enable-vdpau				\
 %endif
@@ -370,26 +384,37 @@ PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/
    	--with-default-font=%{_datadir}/fonts/truetype/FreeSerifBold.ttf \
    	--with-default-monospace-font=%{_datadir}/fonts/truetype/FreeMono.ttf \
 	--disable-oss 				\
+%if %{with wayland}
 	--enable-wayland			\
+%else
+	--disable-wayland			\
+%endif
 	--enable-nls 				\
 	--enable-opus				\
 	--enable-upnp 				\
-	--enable-vcdx 				\
+	--enable-shared 			\
+	--disable-static			\
+%if %{with vaapi}
+        --enable-libva 				\
+%else
+        --disable-libva 			\
+%endif
 %if %{with freerdp}
 	--enable-freerdp			\
 %endif					 
-
+   	--enable-fast-install               	
 
 echo '********* FINISHED CONFIGURE *********'
 date
 
 #./compile
 CFLAGS="-fPIC"
-make || return 1
-
+make %{?_smp_mflags} V=0 || return 1
+#make %{?_smp_mflags}
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" CPPROG="cp -p"
+make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" CPPROG="cp -p" %{?_smp_mflags}
+#make DESTDIR=%{buildroot} install %{?_smp_mflags}
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 
@@ -404,11 +429,6 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/vlc
 
 #Ghost the plugins cache
 touch $RPM_BUILD_ROOT%{_libdir}/vlc/plugins.dat
-
-# hDpi solve the problem with files, thunar but in dolphin doesn't work
-#GCOM=$( sed -n '/Exec=/=' $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop | sort | head -1 )
-#sed -i "${GCOM}s/Exec=/Exec=sh -c \"QT_AUTO_SCREEN_SCALE_FACTOR=0 /" $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop
-#sed -i "${GCOM}s/%U/%U\"/" $RPM_BUILD_ROOT%{_datadir}/applications/vlc.desktop
 
 
 %find_lang %{name}
@@ -588,8 +608,10 @@ fi || :
 
 %changelog
 
-* Tue Jun 13 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-37-git86f6ef1
-- Updated to 3.0.0-37-git86f6ef1
+* Sun Jun 18 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-37-gitf8b5c60
+- Updated to 3.0.0-37-gitf8b5c60
+- Vaapi/libva disabled because new commits broken vlc
+- Wayland disabled, because vlc does not play nothing in Gnome 3 with wayland
 
 * Tue Jun 13 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-36-git78d3459
 - Updated to 3.0.0-36-git78d3459
