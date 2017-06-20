@@ -205,6 +205,9 @@ BuildRequires: libdrm-devel
 BuildRequires: libX11-devel
 BuildRequires:  pkgconfig(libv4l2)
 
+# Fool but it needs detect libva for build...
+BuildRequires:  pkgconfig(libva)
+
 # Wayland support
 %if %{with wayland}
 BuildRequires: pkgconfig(wayland-egl)
