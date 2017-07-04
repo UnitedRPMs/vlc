@@ -37,6 +37,7 @@ git clone --depth 1 https://github.com/videolan/vlc.git ${name}-${shortcommit}
 #svn export https://github.com/videolan/vlc/trunk/ ${name}-${shortcommit}
 pushd ${name}-${shortcommit}
 git checkout --force "${commit}" 
+echo "You are in Commit: $( git rev-parse HEAD )"
 popd
 tar -cvzf ${name}-${shortcommit}.tar.gz ${name}-${shortcommit}
 
