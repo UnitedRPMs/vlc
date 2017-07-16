@@ -1,5 +1,5 @@
-%global gitdate 20170704
-%global commit0 89b077e2141fb0a7cb76e0b1a5f0785e8d1f9586
+%global gitdate 20170715
+%global commit0 3ba7de2ed2de1b57b8b8ab84afe2b0887c4b6e69
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -610,6 +610,9 @@ fi || :
 
 
 %changelog
+
+* Sat Jul 15 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-40-git3ba7de2
+- Updated 3.0.0-40-git3ba7de2
 
 * Sun Jul 09 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-39.git89b077e  
 - Automatic Mass Rebuild
