@@ -1,5 +1,5 @@
-%global gitdate 20170824
-%global commit0 bfff7192a1dc55362b328752d9970ccf177f1ed0
+%global gitdate 20170918
+%global commit0 7ce308c94d48337a81bfb7d5b7098faa99ad77e4
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -611,6 +611,9 @@ fi || :
 
 
 %changelog
+
+* Mon Sep 18 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-44-git7ce308c
+- Updated for mpg123
 
 * Thu Aug 24 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-43.gitbfff719  
 - Updated to 3.0.0-43.gitbfff719
