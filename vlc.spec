@@ -494,7 +494,7 @@ fi || :
 %{_datadir}/icons/hicolor/*/apps/vlc*.png
 %{_datadir}/icons/hicolor/*/apps/vlc*.xpm
 %{_datadir}/vlc/skins2/
-%{_datadir}/appdata/vlc.appdata.xml
+%{_datadir}/metainfo/vlc.appdata.xml
 %{_datadir}/macosx/
 %{_bindir}/qvlc
 %{_bindir}/svlc
