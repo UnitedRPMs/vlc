@@ -1,5 +1,5 @@
-%global gitdate 20170926
-%global commit0 ecb9f19b82b4127dc94e55021f39fa894435bb85
+%global gitdate 20171010
+%global commit0 a4b42264e674242b3eea384fd68a204f2c163e0a
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -611,6 +611,9 @@ fi || :
 
 
 %changelog
+
+* Tue Oct 10 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-48.gita4b4226 
+- Updated to current commit
 
 * Thu Oct 05 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-47.gitecb9f19  
 - Automatic Mass Rebuild
