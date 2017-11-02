@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	50%{?gver}%{?dist}
+Release:	51%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -222,6 +222,10 @@ BuildRequires:  protobuf-lite-devel
 # NEW
 BuildRequires: cmake
 
+# Necessary if you want skin2
+# The skins2 module depends on the Qt interface. Without it you will not be able to open any dialog box from the interface, which makes the skins2 interface rather useless.
+BuildRequires: pkgconfig(Qt5Svg)
+
 Provides: %{name}-xorg%{_isa} = %{version}-%{release}
 Requires: vlc-core%{_isa} = %{version}-%{release}
 # Requires: kde-filesystem
@@ -405,7 +409,8 @@ XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FOR
 %endif
 %if %{with freerdp}
 	--enable-freerdp			\
-%endif					 
+%endif	
+ 	--enable-skins2				\
    	--enable-fast-install               	
 
 echo '********* FINISHED CONFIGURE *********'
@@ -488,13 +493,18 @@ fi || :
 
 
 %files
+%defattr(755, root, root)
 %doc AUTHORS COPYING   
 %{_datadir}/kde4/apps/solid/actions/vlc*.desktop
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/vlc*.png
 %{_datadir}/icons/hicolor/*/apps/vlc*.xpm
+%{_datadir}/vlc/skins2/
 %{_datadir}/metainfo/vlc.appdata.xml
 %{_datadir}/macosx/
+%{_bindir}/qvlc
+%{_bindir}/svlc
+%{_libdir}/vlc/plugins/gui/libqt_plugin.so
 %{_libdir}/vlc/plugins/gui/libncurses_plugin.so
 %{?_with_gnomevfs:
 %{_libdir}/vlc/plugins/access/libaccess_gnomevfs_plugin.so
@@ -509,9 +519,8 @@ fi || :
 %{_libdir}/vlc/plugins/video_output/libxcb_xv_plugin.so
 #{_libdir}/vlc/plugins/video_filter/libpanoramix_plugin.so
 }
-
+%{_libdir}/vlc/plugins/gui/libskins2_plugin.so
 %{_libdir}/vlc/plugins/visualization/libprojectm_plugin.so
-
 %{_libdir}/vlc/plugins/audio_output/libpulse_plugin.so
 
 # Chromecast plugin; maybe we don't need make a subpackage about it...
@@ -607,6 +616,9 @@ fi || :
 
 
 %changelog
+
+* Thu Nov 02 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-51.git90af091
+- Enabled skins2 manually, automatic was disabled
 
 * Wed Nov 01 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-50.git90af091
 - Updated to current commit
