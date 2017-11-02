@@ -493,12 +493,9 @@ fi || :
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/vlc*.png
 %{_datadir}/icons/hicolor/*/apps/vlc*.xpm
-%{_datadir}/vlc/skins2/
 %{_datadir}/metainfo/vlc.appdata.xml
 %{_datadir}/macosx/
-%{_bindir}/qvlc
-%{_bindir}/svlc
-%{_libdir}/vlc/plugins/gui/libqt_plugin.so
+%{_libdir}/vlc/plugins/gui/libncurses_plugin.so
 %{?_with_gnomevfs:
 %{_libdir}/vlc/plugins/access/libaccess_gnomevfs_plugin.so
 }
@@ -512,7 +509,6 @@ fi || :
 %{_libdir}/vlc/plugins/video_output/libxcb_xv_plugin.so
 #{_libdir}/vlc/plugins/video_filter/libpanoramix_plugin.so
 }
-%{_libdir}/vlc/plugins/gui/libskins2_plugin.so
 
 %{_libdir}/vlc/plugins/visualization/libprojectm_plugin.so
 
