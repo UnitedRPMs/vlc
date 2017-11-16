@@ -1,5 +1,5 @@
-%global gitdate 20171101
-%global commit0 90af0919f3f7b17bf186628b73d04d2ca016f52a
+%global gitdate 20171115
+%global commit0 f7f184fa2526dc5506c7ea3bcb3787586c2bec9c
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	51%{?gver}%{?dist}
+Release:	52%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -319,18 +319,9 @@ modules).
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
 sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
 
-# We need said to bootstrap our gcc
+
 echo '********* BOOTSTRAPPING *********'
 date
-test -x "$(type -p gcc-5)" && export BUILDCC=gcc-5
-test -x "$(type -p gcc-5)" && export CC=gcc-5
-test -x "$(type -p g++-5)" && export CXX=g++-5
-test -x "$(type -p gcc-6)" && export BUILDCC=gcc-6
-test -x "$(type -p gcc-6)" && export CC=gcc-6
-test -x "$(type -p g++-6)" && export CXX=g++-6
-test -x "$(type -p gcc-7)" && export BUILDCC=gcc-7
-test -x "$(type -p gcc-7)" && export CC=gcc-7
-test -x "$(type -p g++-7)" && export CXX=g++-7
 
 ./bootstrap
 
@@ -616,6 +607,9 @@ fi || :
 
 
 %changelog
+
+* Thu Nov 16 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-52.gitf7f184f
+- Updated to current commit
 
 * Thu Nov 02 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-51.git90af091
 - Enabled skins2 manually, automatic was disabled
