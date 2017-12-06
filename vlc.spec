@@ -1,5 +1,5 @@
-%global gitdate 20171115
-%global commit0 f7f184fa2526dc5506c7ea3bcb3787586c2bec9c
+%global gitdate 20171205
+%global commit0 974e719ba54ecdb2d468048d3ac516020130a831
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	52%{?gver}%{?dist}
+Release:	53%{?gver}%{?dist}
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
@@ -225,6 +225,7 @@ BuildRequires: cmake
 # Necessary if you want skin2
 # The skins2 module depends on the Qt interface. Without it you will not be able to open any dialog box from the interface, which makes the skins2 interface rather useless.
 BuildRequires: pkgconfig(Qt5Svg)
+BuildRequires: flex-devel
 
 Provides: %{name}-xorg%{_isa} = %{version}-%{release}
 Requires: vlc-core%{_isa} = %{version}-%{release}
@@ -607,6 +608,9 @@ fi || :
 
 
 %changelog
+
+* Tue Dec 05 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-53.git974e719
+- Updated to current commit
 
 * Thu Nov 16 2017 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-52.gitf7f184f
 - Updated to current commit
