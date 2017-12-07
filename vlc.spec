@@ -196,7 +196,7 @@ BuildRequires: libmad-devel
 BuildRequires: mpeg2dec-devel >= 0.3.2
 BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0-0.8.20061028
-BuildRequires: x265-devel
+BuildRequires: x265-devel >= 2.6
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 0-0.33
 BuildRequires: mpg123-devel
