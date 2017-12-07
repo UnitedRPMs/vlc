@@ -225,7 +225,8 @@ BuildRequires: cmake
 # Necessary if you want skin2
 # The skins2 module depends on the Qt interface. Without it you will not be able to open any dialog box from the interface, which makes the skins2 interface rather useless.
 BuildRequires: pkgconfig(Qt5Svg)
-BuildRequires: flex-devel
+BuildRequires: flex
+BuildRequires: bison
 
 Provides: %{name}-xorg%{_isa} = %{version}-%{release}
 Requires: vlc-core%{_isa} = %{version}-%{release}
