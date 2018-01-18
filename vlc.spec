@@ -494,7 +494,6 @@ fi || :
 %{_datadir}/icons/hicolor/*/apps/vlc*.xpm
 %{_datadir}/vlc/skins2/
 %{_datadir}/metainfo/vlc.appdata.xml
-%{_datadir}/macosx/
 %{_bindir}/qvlc
 %{_bindir}/svlc
 %{_libdir}/vlc/plugins/gui/libqt_plugin.so
