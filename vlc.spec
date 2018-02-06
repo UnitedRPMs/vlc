@@ -1,5 +1,5 @@
-%global gitdate 20180204
-%global commit0 0b018b348f47cda82863809ab0385cb993c8aa33
+%global gitdate 20180205
+%global commit0 3c7c271842bc6b325eb8865688f77a014a8ce0ed
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -501,7 +501,7 @@ fi || :
 %{?_with_gnomevfs:
 %{_libdir}/vlc/plugins/access/libaccess_gnomevfs_plugin.so
 }
-%{_libdir}/vlc/plugins/video_output/libaa_plugin.so
+#{_libdir}/vlc/plugins/video_output/libaa_plugin.so
 %{_libdir}/vlc/plugins/video_output/libcaca_plugin.so
 %{!?_without_xcb:
 %{_libdir}/vlc/plugins/access/libxcb_screen_plugin.so
@@ -549,7 +549,7 @@ fi || :
 %if 0%{?fedora} < 17
 %exclude %{_libdir}/vlc/plugins/control/libglobalhotkeys_plugin.so
 %endif
-%exclude %{_libdir}/vlc/plugins/video_output/libaa_plugin.so
+#exclude {_libdir}/vlc/plugins/video_output/libaa_plugin.so
 %exclude %{_libdir}/vlc/plugins/video_output/libcaca_plugin.so
 #exclude %{_libdir}/vlc/plugins/video_output/libxcb_glx_plugin.so
 %exclude %{_libdir}/vlc/plugins/video_output/libxcb_x11_plugin.so
@@ -609,7 +609,7 @@ fi || :
 
 %changelog
 
-* Sun Feb 04 2018 David Vásquez <davidva AT tutanota DOT com> - 4.0.0-6.git0b018b3
+* Mon Feb 05 2018 David Vásquez <davidva AT tutanota DOT com> - 4.0.0-6.git3c7c271
 - Updated to current commit
 
 * Tue Jan 30 2018 David Vásquez <davidva AT tutanota DOT com> - 4.0.0-5.gitdfd480e
