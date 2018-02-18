@@ -496,6 +496,7 @@ fi || :
 %{_datadir}/metainfo/vlc.appdata.xml
 %{_bindir}/qvlc
 %{_bindir}/svlc
+%{_libexecdir}/vlc/vlc-qt-check
 %{_libdir}/vlc/plugins/gui/libqt_plugin.so
 %{_libdir}/vlc/plugins/gui/libncurses_plugin.so
 %{?_with_gnomevfs:
