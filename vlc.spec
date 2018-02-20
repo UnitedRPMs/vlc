@@ -1,12 +1,12 @@
-%global gitdate 20180218
-%global commit0 c7b40f6dd67943a99c972f124e49d2c0d42bc2ad
+%global gitdate 20180219
+%global commit0 3e62c6956f356e87aeea11a7d73e5077aced7ac6
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 %bcond_without workaround_circle_deps 
 %bcond_without codecs
 %bcond_with vaapi
-%bcond_with wayland
+%bcond_without wayland
 %bcond_without ffmpeg
 # yes, libav
 %bcond_with libav 
@@ -28,12 +28,13 @@
 
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
-Version:	4.0.0
+Version:	3.0.0
 Release:	7%{?gver}%{?dist}
+Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:	https://github.com/videolan/vlc/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
 #Patch:		hDpi.patch
 
@@ -146,10 +147,6 @@ BuildRequires:	libpng-devel
 BuildRequires:	opus-devel
 BuildRequires:	pcre-devel
 BuildRequires:	pkgconfig(libpulse) >= 0.9.8
-%if %{with qt5}
-BuildRequires:	qt5-qtbase-devel
-BuildRequires:	qt5-qtx11extras-devel
-%endif
 %if %{with qt4}
 BuildRequires:	qt4-devel qt-x11
 %endif
@@ -171,11 +168,9 @@ BuildRequires:	libXxf86vm-devel
 BuildRequires:	libX11-devel
 BuildRequires:	libXext-devel
 BuildRequires:	libXpm-devel
-%{!?_without_xcb:
 BuildRequires:  libxcb-devel
 BuildRequires:  xcb-util-devel
 BuildRequires:  pkgconfig(xcb-keysyms)
-}
 BuildRequires:	xorg-x11-proto-devel
 
 %if %{with workaround_circle_deps}
@@ -203,10 +198,11 @@ BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
 BuildRequires: libX11-devel
-BuildRequires:  pkgconfig(libv4l2)
+BuildRequires: pkgconfig(libv4l2)
 
 # Fool but it needs detect libva for build...
 BuildRequires:  pkgconfig(libva)
+
 
 # Wayland support
 %if %{with wayland}
@@ -218,13 +214,25 @@ BuildRequires: wayland-protocols-devel
 
 # Chromecast
 BuildRequires:  protobuf-lite-devel
+%if 0%{?fedora} > 25
+BuildRequires:	libmicrodns-devel
+%endif
 
 # NEW
 BuildRequires: cmake
+BuildRequires: lirc-devel
 
 # Necessary if you want skin2
 # The skins2 module depends on the Qt interface. Without it you will not be able to open any dialog box from the interface, which makes the skins2 interface rather useless.
-BuildRequires: pkgconfig(Qt5Svg)
+%if %{with qt5}
+BuildRequires: pkgconfig(Qt5) >= 5.5
+BuildRequires: pkgconfig(Qt5Widgets) >= 5.5
+BuildRequires: pkgconfig(Qt5Core) >= 5.5
+BuildRequires: pkgconfig(Qt5Gui) >= 5.5
+BuildRequires: pkgconfig(Qt5Svg) >= 5.5
+BuildRequires: pkgconfig(Qt5X11Extras) >= 5.5
+%endif
+
 BuildRequires: flex
 BuildRequires: bison
 
@@ -316,10 +324,13 @@ modules).
 
 %{S:1} -c %{commit0}
 
-%setup -T -D -n vlc-%{shortcommit0}
-
+%setup -T -D -n vlc-%{shortcommit0} 
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
 sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
+
+### And LUA 5.3.4 has some more API changes
+sed -i 's/luaL_checkint(/(int)luaL_checkinteger(/' \
+    modules/lua/{demux,libs/{configuration,dialog,net,osd,playlist,stream,variables,volume}}.c
 
 
 echo '********* BOOTSTRAPPING *********'
@@ -330,7 +341,8 @@ date
 %build
 
 PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/libav/pkgconfig/:/opt/freerdp-1.0.2/%{_lib}/pkgconfig/:
-XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2" XLDFLAGS="-Wl,-z,relro"
+#XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2" XLDFLAGS="-Wl,-z,relro"
+
 
 %configure  \
 	--disable-dependency-tracking		\
@@ -344,6 +356,7 @@ XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FOR
 	--with-pic				\
 	--disable-rpath				\
 	--with-binary-version=%{version}	\
+        --with-kde-solid=%{_kde4_appsdir}/solid/actions \
 	--enable-lua				\
 %if %{with opencv}
 	--enable-opencv		 		\
@@ -355,10 +368,8 @@ XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FOR
 	--enable-theora				\
 	--enable-libass				\
 	--enable-shout				\
-%{!?_without_xcb:--enable-xcb --enable-xvideo} 	\
-%{?_without_xcb:--disable-xcb --disable-xvideo} \
+        --enable-xvideo 	                \
 	--enable-svg				\
-	--enable-aa				\
 	--enable-caca				\
 	--enable-jack				\
 	--enable-pulse				\
@@ -400,11 +411,13 @@ XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FOR
 %else
         --disable-libva 			\
 %endif
+        --enable-skins2				\
 %if %{with freerdp}
-	--enable-freerdp			\
+	--enable-freerdp	                \		
 %endif	
- 	--enable-skins2				\
-   	--enable-fast-install               	
+   	--enable-fast-install                   \
+        --enable-lirc                              
+
 
 echo '********* FINISHED CONFIGURE *********'
 date
@@ -496,7 +509,8 @@ fi || :
 %{_datadir}/metainfo/vlc.appdata.xml
 %{_bindir}/qvlc
 %{_bindir}/svlc
-%{_libexecdir}/vlc/vlc-qt-check
+# Next release
+#{_libexecdir}/vlc/vlc-qt-check
 %{_libdir}/vlc/plugins/gui/libqt_plugin.so
 %{_libdir}/vlc/plugins/gui/libncurses_plugin.so
 %{?_with_gnomevfs:
@@ -609,6 +623,10 @@ fi || :
 
 
 %changelog
+
+* Sun Feb 18 2018 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-7.git3e62c69
+- Go back to 3
+- Added missed dependency for Chromecast
 
 * Sun Feb 18 2018 David Vásquez <davidva AT tutanota DOT com> - 4.0.0-7.gitc7b40f6
 - Updated to 4.0.0-7.gitc7b40f6
