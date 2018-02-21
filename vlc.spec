@@ -236,8 +236,8 @@ BuildRequires: pkgconfig(Qt5X11Extras) >= 5.5
 BuildRequires: flex
 BuildRequires: bison
 
-Provides: %{name}-xorg%{_isa} = %{version}-%{release}
-Requires: vlc-core%{_isa} = %{version}-%{release}
+Provides: %{name}-xorg = %{version}-%{release}
+Requires: vlc-core  = %{version}-%{release}
 # Requires: kde-filesystem
 
 Requires: texlive-gnu-freefont
@@ -271,7 +271,7 @@ multi-cast in IPv4 or IPv6 on networks.
 %package devel
 Summary:	Development files for %{name}
 Group:		Development/Libraries
-Requires:	%{name}-core%{_isa} = %{version}-%{release}
+Requires:	%{name}-core = %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -291,7 +291,7 @@ VLC media player core components
 %package extras
 Summary:	VLC media player with extras modules
 Group:		Applications/Multimedia
-Requires:	vlc-core%{_isa} = %{version}-%{release}
+Requires:	vlc-core = %{version}-%{release}
 
 
 %description extras
@@ -300,7 +300,7 @@ VLC media player extras modules.
 %package plugin-jack
 Summary:	JACK audio plugin for VLC
 Group:		Applications/Multimedia
-Requires:	vlc-core%{_isa} = %{version}-%{release}
+Requires:	vlc-core = %{version}-%{release}
 
 %description plugin-jack
 JACK audio plugin for the VLC media player.

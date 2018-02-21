@@ -4,7 +4,5 @@
 
 Summary:	The cross-platform open-source multimedia framework, player and server.
  
-Version:	4.0.0
- 
 License:	GPLv2+
  
