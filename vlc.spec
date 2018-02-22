@@ -214,7 +214,7 @@ BuildRequires: wayland-protocols-devel
 
 # Chromecast
 BuildRequires:  protobuf-lite-devel
-%if 0%{?fedora} > 25
+%if 0%{?fedora} >= 26
 BuildRequires:	libmicrodns-devel
 %endif
 
