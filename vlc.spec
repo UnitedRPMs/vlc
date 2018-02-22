@@ -272,6 +272,7 @@ multi-cast in IPv4 or IPv6 on networks.
 Summary:	Development files for %{name}
 Group:		Development/Libraries
 Requires:	%{name}-core = %{version}-%{release}
+Provides:	vlc-devel = %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -282,6 +283,7 @@ developing applications that use %{name}.
 Summary:	VLC media player core
 Group:		Applications/Multimedia
 Provides:	vlc-nox = %{version}-%{release}
+Provides:	vlc-core = %{version}-%{release}
 Obsoletes:	vlc-nox < 1.1.5-2
 %{?live555_version:Requires: live555%{?_isa} = %{live555_version}}
 
@@ -291,6 +293,7 @@ VLC media player core components
 %package extras
 Summary:	VLC media player with extras modules
 Group:		Applications/Multimedia
+Provides:	vlc-extras = %{version}-%{release}
 Requires:	vlc-core = %{version}-%{release}
 
 
@@ -301,6 +304,7 @@ VLC media player extras modules.
 Summary:	JACK audio plugin for VLC
 Group:		Applications/Multimedia
 Requires:	vlc-core = %{version}-%{release}
+Provides:	vlc-plugin-jack = %{version}-%{release}
 
 %description plugin-jack
 JACK audio plugin for the VLC media player.
@@ -310,6 +314,7 @@ JACK audio plugin for the VLC media player.
 Summary:        Decode using GStreamer for VLC
 Group:          Applications/Multimedia
 Requires:       %{name} = %{version}-%{release}
+Provides:	vlc-codec-gstreamer = %{version}-%{release}
 
 %description codec-gstreamer
 This package enhances the functionality of the VLC VideoLAN Client by
