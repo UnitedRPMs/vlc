@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.0
-Release:	7%{?gver}%{?dist}
+Release:	8%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -628,6 +628,9 @@ fi || :
 
 
 %changelog
+
+* Sat Feb 24 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.0-8.git3e62c69  
+- Automatic Mass Rebuild
 
 * Sun Feb 18 2018 David Vásquez <davidva AT tutanota DOT com> - 3.0.0-7.git3e62c69
 - Go back to 3
