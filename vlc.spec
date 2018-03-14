@@ -1,5 +1,5 @@
-%global gitdate 20180303
-%global commit0 9f88cd66d3426fd3b1cf54ed70ccf5e763acca32
+%global gitdate 20180314
+%global commit0 2dd378521364c56f07847d1dd3741ee96e61eb1c
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.2
-Release:	1%{?gver}%{?dist}
+Release:	2%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -338,6 +338,7 @@ sed -i 's/luaL_checkint(/(int)luaL_checkinteger(/' \
     modules/lua/{demux,libs/{configuration,dialog,net,osd,playlist,stream,variables,volume}}.c
 
 
+
 echo '********* BOOTSTRAPPING *********'
 date
 
@@ -347,6 +348,11 @@ date
 
 PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/libav/pkgconfig/:/opt/freerdp-1.0.2/%{_lib}/pkgconfig/:
 #XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2" XLDFLAGS="-Wl,-z,relro"
+
+sed -e 's:truetype/ttf-dejavu:TTF:g' -i modules/visualization/projectm.cpp
+sed -e 's|-Werror-implicit-function-declaration||g' -i configure
+sed 's|whoami|echo builduser|g' -i configure
+sed 's|hostname -f|echo arch|g' -i configure
 
 
 %configure  \
@@ -628,6 +634,9 @@ fi || :
 
 
 %changelog
+
+* Wed Mar 14 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.2-2.git2dd3785  
+- Updated to current commit 
 
 * Fri Mar 09 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.2-1.git9f88cd6  
 - Updated to 3.0.2-1.git9f88cd6
