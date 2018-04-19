@@ -1,5 +1,5 @@
-%global gitdate 20180406
-%global commit0 907a01db65ed657565fcbaa21dc627be4077a63d
+%global gitdate 20180418
+%global commit0 52d6aeb7d7ce02544aaea5c1936c490fac04da78
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.2
-Release:	3%{?gver}%{?dist}
+Release:	4%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -634,6 +634,9 @@ fi || :
 
 
 %changelog
+
+* Wed Apr 18 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.2-4.git52d6aeb  
+- Updated to 3.0.2-4.git52d6aeb
 
 * Fri Apr 06 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.2-3.git907a01d  
 - Updated to 3.0.2-3.git907a01d
