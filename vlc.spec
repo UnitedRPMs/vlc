@@ -1,5 +1,5 @@
-%global gitdate 20180418
-%global commit0 52d6aeb7d7ce02544aaea5c1936c490fac04da78
+%global gitdate 20180504
+%global commit0 232058fb428d931da046cb69642e412c6549d20e
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.2
-Release:	5%{?gver}%{?dist}
+Release:	7%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -193,7 +193,7 @@ BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0-0.8.20061028
 BuildRequires: x265-devel >= 2.6
 BuildRequires: xvidcore-devel
-BuildRequires: live555-devel >= 0-0.33
+BuildRequires: live555-devel >= 2018.04.25-3
 BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
@@ -634,6 +634,9 @@ fi || :
 
 
 %changelog
+
+* Fri May 04 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.2-7.git232058f  
+- Updated to current commit
 
 * Thu Apr 26 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.2-5.git52d6aeb  
 - Automatic Mass Rebuild
