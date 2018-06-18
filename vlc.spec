@@ -37,6 +37,7 @@ URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
 #Patch:		hDpi.patch
+Patch:		vlc-qt5.11.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -329,7 +330,7 @@ modules).
 
 %{S:1} -c %{commit0}
 
-%setup -T -D -n vlc-%{shortcommit0} 
+%autosetup -T -D -n vlc-%{shortcommit0} -p1
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
 sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
 
