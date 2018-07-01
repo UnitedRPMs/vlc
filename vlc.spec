@@ -1,5 +1,5 @@
-%global gitdate 20180623
-%global commit0 531fb72410c06a78f65d231db393443093e719e0
+%global gitdate 20180630
+%global commit0 ce3bb8755cec6e3b35d540e206686cadc7e90fb1
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.4
-Release:	1%{?gver}%{?dist}
+Release:	2%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -635,6 +635,10 @@ fi || :
 
 
 %changelog
+
+* Sat Jun 30 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.4-2.gitce3bb87 
+- Updated to current commit
+- Changed to Xwayland
 
 * Sat Jun 23 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.4-1.git531fb72  
 - Updated to 3.0.4-1.git531fb72
