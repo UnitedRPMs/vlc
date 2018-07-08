@@ -1,5 +1,5 @@
-%global gitdate 20180630
-%global commit0 ce3bb8755cec6e3b35d540e206686cadc7e90fb1
+%global gitdate 20180708
+%global commit0 74297b7d44a14703dc9827d2bd837da463d45421
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.4
-Release:	3%{?gver}%{?dist}
+Release:	4%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -37,7 +37,11 @@ URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
 #Patch:		hDpi.patch
+#Thanks Gentoo
 Patch:		vlc-qt5.11.patch
+#Thanks Arch Linux
+Patch1:		aom-remove-unsupported-pixel-formats.patch
+
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -424,10 +428,12 @@ sed 's|hostname -f|echo arch|g' -i configure
         --disable-libva 			\
 %endif
         --enable-skins2				\
+	--enable-skins				\
 %if %{with freerdp}
 	--enable-freerdp	                \		
 %endif	
    	--enable-fast-install                   \
+	--enable-vlm				\
         --enable-lirc                              
 
 
@@ -635,6 +641,11 @@ fi || :
 
 
 %changelog
+
+* Sun Jul 08 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.4-4.git74297b7
+- Updated to current commit
+- Secured to include skins
+- Enabled vlm
 
 * Sat Jul 07 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.4-3.gitce3bb87  
 - Automatic Mass Rebuild
