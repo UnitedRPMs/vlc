@@ -1,5 +1,5 @@
-%global gitdate 20180708
-%global commit0 74297b7d44a14703dc9827d2bd837da463d45421
+%global gitdate 20180726
+%global commit0 a3f3b935fdc8efd34cf7b0c673e68dc862e5dabd
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.4
-Release:	4%{?gver}%{?dist}
+Release:	5%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -39,9 +39,6 @@ Source1:	vlc-snapshot
 #Patch:		hDpi.patch
 #Thanks Gentoo
 Patch:		vlc-qt5.11.patch
-#Thanks Arch Linux
-Patch1:		aom-remove-unsupported-pixel-formats.patch
-
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -641,6 +638,9 @@ fi || :
 
 
 %changelog
+
+* Thu Jul 26 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.4-5.gita3f3b93
+- Updated to current commit
 
 * Sun Jul 08 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.4-4.git74297b7
 - Updated to current commit
