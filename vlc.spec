@@ -1,5 +1,5 @@
-%global gitdate 20180726
-%global commit0 a3f3b935fdc8efd34cf7b0c673e68dc862e5dabd
+%global gitdate 20180809
+%global commit0 5a7ad1b63678634706b7fadf2d0feba5805fbffd
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,7 +29,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.4
-Release:	5%{?gver}%{?dist}
+Release:	6%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -195,7 +195,7 @@ BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0-0.8.20061028
 BuildRequires: x265-devel >= 2.8
 BuildRequires: xvidcore-devel
-BuildRequires: live555-devel >= 2018.04.25-3
+BuildRequires: live555-devel >= 2018.08.05
 BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
@@ -287,7 +287,7 @@ Group:		Applications/Multimedia
 Provides:	vlc-nox = %{version}-%{release}
 Provides:	vlc-core = %{version}-%{release}
 Obsoletes:	vlc-nox < 1.1.5-2
-%{?live555_version:Requires: live555%{?_isa} = %{live555_version}}
+
 
 %description core
 VLC media player core components
@@ -638,6 +638,9 @@ fi || :
 
 
 %changelog
+
+* Thu Aug 09 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.4-6.git5a7ad1b
+- Updated to current commit and rebuilt for live555
 
 * Thu Jul 26 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.4-5.gita3f3b93
 - Updated to current commit
