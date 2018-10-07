@@ -1,5 +1,5 @@
-%global gitdate 20180916
-%global commit0 05093965224e56ffcfa357da8c67d13d2484f34d
+%global gitdate 20181007
+%global commit0 e43004ec8a747fe2f436154abc80725b08685d4a
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -29,16 +29,15 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.5
-Release:	3%{?gver}%{?dist}
+Release:	4%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
-#Patch:		hDpi.patch
-#Thanks Gentoo
 Patch:		vlc-qt5.11.patch
+Patch1:		vlc-x264-155.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -638,6 +637,9 @@ fi || :
 
 
 %changelog
+
+* Sun Oct 07 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.5-4.gite43004e  
+- Updated to current commit
 
 * Fri Oct 05 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.5-3.git0509396  
 - Automatic Mass Rebuild
