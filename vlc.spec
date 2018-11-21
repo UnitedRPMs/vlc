@@ -38,7 +38,6 @@ URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
 Patch:		vlc-qt5.11.patch
-Patch1:		vlc-x264-155.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
