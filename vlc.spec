@@ -1,5 +1,5 @@
-%global gitdate 20181128
-%global commit0 bedc72800f1a5fd2a4d1bb59417bb6605757a8de
+%global gitdate 20181216
+%global commit0 65d67548fd553dd540533a119bf4c06c447d6b6d
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -30,7 +30,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.5
-Release:	9%{?gver}%{?dist}
+Release:	10%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -64,7 +64,7 @@ BuildRequires:  libsecret-devel
 BuildRequires:  libnotify-devel
 
 %if %{with ffmpeg}
-BuildRequires: ffmpeg-devel >= 4.1
+BuildRequires: ffmpeg-devel >= 4.0
 %endif
 %if %{with libav}
 BuildRequires: libav-devel >= 11.4
@@ -645,8 +645,9 @@ fi || :
 
 %changelog
 
-* Thu Dec 06 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.5-9.gitbedc728 
-- Rebuilt for ffmpeg
+* Sun Dec 16 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.5-10.git65d6754  
+- Rebuilt for live555
+- Updated to current commit
 
 * Wed Nov 28 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.5-8.git5bf38c1  
 - Updated to current commit
