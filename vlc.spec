@@ -645,7 +645,7 @@ fi || :
 
 %changelog
 
-* Mon Feb 04 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.6-8.gitdb3e320  
+* Mon Feb 04 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.6-8.gitdb3e320  
 - Rebuilt for live555
 
 * Fri Dec 28 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.6-7.gitfe5495ae  
