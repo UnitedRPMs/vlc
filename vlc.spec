@@ -232,6 +232,7 @@ BuildRequires: pkgconfig(Qt5Core) >= 5.5
 BuildRequires: pkgconfig(Qt5Gui) >= 5.5
 BuildRequires: pkgconfig(Qt5Svg) >= 5.5
 BuildRequires: pkgconfig(Qt5X11Extras) >= 5.5
+BuildRequires: qt5ct
 %endif
 
 BuildRequires: flex
