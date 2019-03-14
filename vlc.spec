@@ -1,5 +1,5 @@
-%global gitdate 20190302
-%global commit0 c31b32988afd3e003a48f7c77b6cde6132ec8649
+%global gitdate 20190314
+%global commit0 828e0ce573758ce617377a99431a2ea8821742e1
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -30,7 +30,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.7
-Release:	8%{?gver}%{?dist}
+Release:	9%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -191,7 +191,7 @@ BuildRequires: libdvbpsi-devel
 BuildRequires: libmad-devel
 BuildRequires: mpeg2dec-devel >= 0.3.2
 BuildRequires: twolame-devel
-BuildRequires: x264-devel >= 0.155
+BuildRequires: x264-devel >= 0.157
 BuildRequires: x265-devel >= 3.0
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 2019.02.27
@@ -232,7 +232,6 @@ BuildRequires: pkgconfig(Qt5Core) >= 5.5
 BuildRequires: pkgconfig(Qt5Gui) >= 5.5
 BuildRequires: pkgconfig(Qt5Svg) >= 5.5
 BuildRequires: pkgconfig(Qt5X11Extras) >= 5.5
-BuildRequires: qt5ct
 %endif
 
 BuildRequires: flex
@@ -645,6 +644,10 @@ fi || :
 
 
 %changelog
+
+* Wed Mar 13 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.7-9.git828e0ce
+- Updated to current commit
+- Rebuilt for x264 
 
 * Sat Mar 02 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.7-8.gitc31b329
 - Updated to current commit
