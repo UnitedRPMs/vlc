@@ -360,9 +360,6 @@ sed -e 's|-Werror-implicit-function-declaration||g' -i configure
 sed 's|whoami|echo builduser|g' -i configure
 sed 's|hostname -f|echo arch|g' -i configure
 
-export CXXFLAGS+=" -std=c++11"
-export RCC=/usr/bin/rcc-qt5
-
 %configure  \
 	--disable-dependency-tracking		\
 	--disable-optimizations			\
@@ -440,6 +437,7 @@ export RCC=/usr/bin/rcc-qt5
 %endif	
    	--enable-fast-install                   \
 	--enable-vlm				\
+	--enable-qt				\
         --enable-lirc                              
 
 
