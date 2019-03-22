@@ -360,7 +360,8 @@ sed -e 's|-Werror-implicit-function-declaration||g' -i configure
 sed 's|whoami|echo builduser|g' -i configure
 sed 's|hostname -f|echo arch|g' -i configure
 
-export LD_LIBRARY_PATH=%{_libdir}
+export CXXFLAGS+=" -std=c++11"
+export RCC=/usr/bin/rcc-qt5
 
 %configure  \
 	--disable-dependency-tracking		\
