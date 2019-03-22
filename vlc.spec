@@ -360,7 +360,7 @@ sed -e 's|-Werror-implicit-function-declaration||g' -i configure
 sed 's|whoami|echo builduser|g' -i configure
 sed 's|hostname -f|echo arch|g' -i configure
 
-LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=%{_libdir}
 
 %configure  \
 	--disable-dependency-tracking		\
