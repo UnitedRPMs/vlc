@@ -226,6 +226,7 @@ BuildRequires: lirc-devel
 # Necessary if you want skin2
 # The skins2 module depends on the Qt interface. Without it you will not be able to open any dialog box from the interface, which makes the skins2 interface rather useless.
 %if %{with qt5}
+BuildRequires: qt5-qtbase-devel
 BuildRequires: pkgconfig(Qt5) >= 5.5
 BuildRequires: pkgconfig(Qt5Widgets) >= 5.5
 BuildRequires: pkgconfig(Qt5Core) >= 5.5
@@ -359,6 +360,7 @@ sed -e 's|-Werror-implicit-function-declaration||g' -i configure
 sed 's|whoami|echo builduser|g' -i configure
 sed 's|hostname -f|echo arch|g' -i configure
 
+LD_LIBRARY_PATH
 
 %configure  \
 	--disable-dependency-tracking		\
