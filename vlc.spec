@@ -106,7 +106,11 @@ BuildRequires:	libmodplug-devel
 BuildRequires:	libmp4v2-devel
 BuildRequires:	libmpcdec-devel
 BuildRequires:	libmtp-devel >= 1.0.0
-BuildRequires: 	libprojectM-qt-devel
+%if 0%{?fedora} >= 31
+BuildRequires: 	libprojectM-devel 
+%else
+BuildRequires: 	libprojectM-qt-devel 
+%endif
 BuildRequires:	libproxy-devel
 BuildRequires:	librsvg2-devel >= 2.9.0
 BuildRequires:	libssh2-devel
@@ -352,7 +356,7 @@ date
 
 %build
 
-PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/libav/pkgconfig/:/opt/freerdp-1.0.2/%{_lib}/pkgconfig/:
+# PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/libav/pkgconfig/:/opt/freerdp-1.0.2/%{_lib}/pkgconfig/:
 #XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2" XLDFLAGS="-Wl,-z,relro"
 
 sed -e 's:truetype/ttf-dejavu:TTF:g' -i modules/visualization/projectm.cpp
@@ -437,7 +441,6 @@ sed 's|hostname -f|echo arch|g' -i configure
 %endif	
    	--enable-fast-install                   \
 	--enable-vlm				\
-	--enable-qt				\
         --enable-lirc                              
 
 
