@@ -198,7 +198,7 @@ BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0.157
 BuildRequires: x265-devel >= 3.0
 BuildRequires: xvidcore-devel
-BuildRequires: live555-devel >= 2019.02.27
+BuildRequires: live555-devel >= 2019.03.06
 BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
