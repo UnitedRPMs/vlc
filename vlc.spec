@@ -1,4 +1,4 @@
-%global gitdate 20190408
+%global gitdate 20190314
 %global commit0 4b7656b49e4dd6e03f7fec2ab31d1869005b0647
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
@@ -25,7 +25,13 @@
 %bcond_without crystalhd
 %endif
 
-%bcond_without placebo 
+%if 0%{?fedora} >= 30
+%bcond_with placebo
+%else
+%bcond_without placebo
+%endif 
+
+%bcond_without projectM
 
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
@@ -38,6 +44,7 @@ URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
 Patch:		vlc-qt5.11.patch
+Patch1:		https://github.com/RPi-Distro/vlc/raw/stretch-rpt/debian/patches/mmal_8.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -106,10 +113,12 @@ BuildRequires:	libmodplug-devel
 BuildRequires:	libmp4v2-devel
 BuildRequires:	libmpcdec-devel
 BuildRequires:	libmtp-devel >= 1.0.0
+%if %{with projectM}
 %if 0%{?fedora} >= 31
 BuildRequires: 	libprojectM-devel 
 %else
 BuildRequires: 	libprojectM-qt-devel 
+%endif
 %endif
 BuildRequires:	libproxy-devel
 BuildRequires:	librsvg2-devel >= 2.9.0
@@ -246,6 +255,8 @@ BuildRequires: bison
 BuildRequires: libplacebo-devel
 %endif
 
+BuildRequires:	clang llvm
+
 Provides: %{name}-xorg = %{version}-%{release}
 Requires: vlc-core  = %{version}-%{release}
 # Requires: kde-filesystem
@@ -352,6 +363,7 @@ sed -i 's/luaL_checkint(/(int)luaL_checkinteger(/' \
 echo '********* BOOTSTRAPPING *********'
 date
 
+
 ./bootstrap
 
 %build
@@ -359,10 +371,14 @@ date
 # PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/libav/pkgconfig/:/opt/freerdp-1.0.2/%{_lib}/pkgconfig/:
 #XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2" XLDFLAGS="-Wl,-z,relro"
 
+
+%if %{with projectM}
 sed -e 's:truetype/ttf-dejavu:TTF:g' -i modules/visualization/projectm.cpp
 sed -e 's|-Werror-implicit-function-declaration||g' -i configure
 sed 's|whoami|echo builduser|g' -i configure
 sed 's|hostname -f|echo arch|g' -i configure
+%endif
+
 
 %configure  \
 	--disable-dependency-tracking		\
@@ -441,11 +457,15 @@ sed 's|hostname -f|echo arch|g' -i configure
 %endif	
    	--enable-fast-install                   \
 	--enable-vlm				\
+%if !%{with projectM}
+	--disable-projectm			\
+%endif
         --enable-lirc                              
 
 
 echo '********* FINISHED CONFIGURE *********'
 date
+
 
 #./compile
 CFLAGS="-fPIC"
@@ -552,7 +572,9 @@ fi || :
 #{_libdir}/vlc/plugins/video_filter/libpanoramix_plugin.so
 }
 %{_libdir}/vlc/plugins/gui/libskins2_plugin.so
+%if %{with projectM}
 %{_libdir}/vlc/plugins/visualization/libprojectm_plugin.so
+%endif
 %{_libdir}/vlc/plugins/audio_output/libpulse_plugin.so
 
 # Chromecast plugin; maybe we don't need make a subpackage about it...
@@ -603,7 +625,9 @@ fi || :
 %exclude %{_libdir}/vlc/plugins/video_filter/libopencv_wrapper_plugin.so
 %endif
 
+%if %{with projectM}
 %exclude %{_libdir}/vlc/plugins/visualization/libprojectm_plugin.so
+%endif
 
 %exclude %{_libdir}/vlc/plugins/audio_output/libjack_plugin.so
 %exclude %{_libdir}/vlc/plugins/audio_output/libpulse_plugin.so
