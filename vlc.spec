@@ -380,6 +380,8 @@ sed 's|hostname -f|echo arch|g' -i configure
 %endif
 
 
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
+
 %configure  \
 	--disable-dependency-tracking		\
 	--disable-optimizations			\
