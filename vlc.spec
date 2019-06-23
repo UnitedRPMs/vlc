@@ -36,7 +36,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.7.1
-Release:	7%{?gver}%{?dist}
+Release:	8%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -205,7 +205,7 @@ BuildRequires: libmad-devel
 BuildRequires: mpeg2dec-devel >= 0.3.2
 BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0.157
-BuildRequires: x265-devel >= 3.0
+BuildRequires: x265-devel >= 3.1
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 2019.05.03
 BuildRequires: mpg123-devel
@@ -674,6 +674,9 @@ fi || :
 
 
 %changelog
+
+* Sat Jun 22 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.7.1-8.gitf3940db
+- Rebuilt for x265
 
 * Tue Jun 11 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.7.1-7.gitf3940db
 - Updated to 3.0.7.1
