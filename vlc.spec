@@ -1,5 +1,5 @@
-%global gitdate 20190802
-%global commit0 f97c87202731a79cc25d3639635e04335ea014e8
+%global gitdate 20190813
+%global commit0 90f510ddd403031e78537173f68a54967769c451
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -36,7 +36,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.8
-Release:	9%{?gver}%{?dist}
+Release:	10%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -207,7 +207,7 @@ BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0.157
 BuildRequires: x265-devel >= 3.1
 BuildRequires: xvidcore-devel
-BuildRequires: live555-devel >= 2019.07.27
+BuildRequires: live555-devel >= 2019.08.12
 BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
@@ -235,6 +235,8 @@ BuildRequires:	libmicrodns-devel
 # NEW
 BuildRequires: cmake
 BuildRequires: lirc-devel
+BuildRequires: pkgconfig(dav1d) >= 0.4.0
+BuildRequires: libaom-devel
 
 # Necessary if you want skin2
 # The skins2 module depends on the Qt interface. Without it you will not be able to open any dialog box from the interface, which makes the skins2 interface rather useless.
@@ -462,6 +464,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
 %if !%{with projectM}
 	--disable-projectm			\
 %endif
+	--enable-dav1d				\
+	--enable-aom				\
         --enable-lirc                              
 
 
@@ -674,6 +678,11 @@ fi || :
 
 
 %changelog
+
+* Tue Aug 13 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.8-10.git90f510d
+- Rebuilt for live555
+- Enabled dav1d
+- Enabled aom
 
 * Fri Aug 02 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.8-9.gitf97c872
 - Rebuilt for live555
