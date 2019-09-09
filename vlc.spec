@@ -1,5 +1,5 @@
-%global gitdate 20190815
-%global commit0 f350b6b5a7ece8322095ec8b494f58322680eb1e
+%global gitdate 20190909
+%global commit0 1c3a98552a98b66b386092fd47ba5ea4bebf5aa5
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -36,7 +36,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.8
-Release:	11%{?gver}%{?dist}
+Release:	12%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -236,7 +236,9 @@ BuildRequires:	libmicrodns-devel
 BuildRequires: cmake
 BuildRequires: lirc-devel
 BuildRequires: pkgconfig(dav1d) >= 0.4.0
+%if 0%{?fedora} <= 30
 BuildRequires: libaom-devel
+%endif
 
 # Necessary if you want skin2
 # The skins2 module depends on the Qt interface. Without it you will not be able to open any dialog box from the interface, which makes the skins2 interface rather useless.
@@ -465,10 +467,10 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
 	--disable-projectm			\
 %endif
 	--enable-dav1d				\
-	--enable-aom				\
-        --enable-lirc                              
-
-
+        --enable-lirc  				\                            
+%if 0%{?fedora} <= 30
+	--enable-aom							
+%endif
 echo '********* FINISHED CONFIGURE *********'
 date
 
@@ -678,6 +680,9 @@ fi || :
 
 
 %changelog
+
+* Mon Sep 09 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.8-12.git1c3a985
+- Updated to current commit 
 
 * Thu Aug 15 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.8-11.gitf350b6b
 - Updated to current commit called the final release
