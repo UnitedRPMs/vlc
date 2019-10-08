@@ -35,8 +35,8 @@
 
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
-Version:	3.0.8
-Release:	13%{?gver}%{?dist}
+Version:	3.0.9
+Release:	7%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -457,7 +457,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
         --disable-libva 			\
 %endif
         --enable-skins2				\
-	--enable-skins				\
 %if %{with freerdp}
 	--enable-freerdp	                \		
 %endif	
@@ -468,9 +467,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
 %endif
 	--enable-dav1d				\
         --enable-lirc  				\                            
-%if 0%{?fedora} <= 30
-	--enable-aom							
-%endif
 echo '********* FINISHED CONFIGURE *********'
 date
 
@@ -681,8 +677,8 @@ fi || :
 
 %changelog
 
-* Mon Oct 07 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.8-13.gitf9379f4
-- Updated to current commit 
+* Mon Oct 07 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-7.gitf9379f4
+- Updated to 3.0.9 
 
 * Mon Sep 09 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.8-12.git1c3a985
 - Updated to current commit 
