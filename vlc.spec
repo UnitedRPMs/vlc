@@ -1,5 +1,5 @@
-%global gitdate 20191007
-%global commit0 f9379f4d108b7a97269eb841050a6d31781207b5
+%global gitdate 20191019
+%global commit0 2d00056a3174c2d140a50ce085793e9b81b3ca97
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -36,7 +36,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.9
-Release:	7%{?gver}%{?dist}
+Release:	8%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -235,7 +235,7 @@ BuildRequires:	libmicrodns-devel
 # NEW
 BuildRequires: cmake
 BuildRequires: lirc-devel
-BuildRequires: pkgconfig(dav1d) >= 0.4.0
+BuildRequires: pkgconfig(dav1d) >= 0.5.0
 %if 0%{?fedora} <= 30
 BuildRequires: libaom-devel
 %endif
@@ -676,6 +676,11 @@ fi || :
 
 
 %changelog
+
+
+* Fri Oct 18 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-8.git2d00056
+- Rebuilt for dav1d
+- Updated to current commit 
 
 * Mon Oct 07 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-7.gitf9379f4
 - Updated to 3.0.9 
