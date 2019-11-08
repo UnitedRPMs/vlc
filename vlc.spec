@@ -1,5 +1,5 @@
-%global gitdate 20191019
-%global commit0 2d00056a3174c2d140a50ce085793e9b81b3ca97
+%global gitdate 20191108
+%global commit0 e987d8763d4ed39fc9ff02b4c93a878a1b26f68c
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -207,7 +207,7 @@ BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0.157
 BuildRequires: x265-devel >= 3.1
 BuildRequires: xvidcore-devel
-BuildRequires: live555-devel >= 2019.08.12
+BuildRequires: live555-devel >= 2019.11.05
 BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
@@ -677,6 +677,9 @@ fi || :
 
 %changelog
 
+* Wed Nov 06 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-9.gite987d87
+- Updated to current commit
+- Rebuilt for live555
 
 * Fri Oct 18 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-8.git2d00056
 - Rebuilt for dav1d
