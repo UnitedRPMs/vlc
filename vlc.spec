@@ -36,7 +36,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.9
-Release:	8%{?gver}%{?dist}
+Release:	10%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -44,7 +44,7 @@ URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
 Patch:		vlc-qt5.11.patch
-Patch1:		https://github.com/RPi-Distro/vlc/raw/stretch-rpt/debian/patches/mmal_8.patch
+Patch1:	https://github.com/RPi-Distro/vlc/raw/stretch-rpt/debian/patches/mmal_8.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -198,7 +198,7 @@ BuildRequires:	libnotify-devel
 BuildRequires:	libXi-devel
 # Those are dependencies which are NOT provided in Fedora, mostly for legal reasons.
 BuildRequires: a52dec-devel
-BuildRequires: faad2-devel
+BuildRequires: faad2-devel >= 2.9.1
 BuildRequires: libdca-devel
 BuildRequires: libdvbpsi-devel
 BuildRequires: libmad-devel
@@ -676,6 +676,9 @@ fi || :
 
 
 %changelog
+
+* Sat Nov 09 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-10.gite987d87
+- Rebuilt for faad2
 
 * Wed Nov 06 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-9.gite987d87
 - Updated to current commit
