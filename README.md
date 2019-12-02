@@ -1,6 +1,6 @@
 #		vlc
 
-[![Build Status](https://travis-ci.org/UnitedRPMs/vlc.svg?branch=master)](https://travis-ci.org/UnitedRPMs/vlc)
+[![Run Status](https://api.shippable.com/projects/58e99ab064421007001c6c15/badge?branch=master)](https://app.shippable.com/github/UnitedRPMS/vlc)
 
 Summary:	The cross-platform open-source multimedia framework, player and server.
  
