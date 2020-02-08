@@ -1,5 +1,21 @@
-%global gitdate 20200111
-%global commit0 21c2a25173083474a02b41a5bad227d3d5389b70
+#
+# spec file for package vlc
+#
+# Copyright (c) 2020 UnitedRPMs.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via https://goo.gl/zqFJft
+
+%global gitdate 20200208
+%global commit0 094c41bdd81577c4e2d4a4ead63121df1929c47f
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -36,7 +52,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.9
-Release:	14%{?gver}%{?dist}
+Release:	15%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -207,7 +223,7 @@ BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0.157
 BuildRequires: x265-devel >= 3.2.1
 BuildRequires: xvidcore-devel
-BuildRequires: live555-devel >= 2019.12.10
+BuildRequires: live555-devel >= 2020.01.28
 BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
@@ -676,6 +692,10 @@ fi || :
 
 
 %changelog
+
+* Sat Feb 08 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-15.git094c41b
+- Updated to current commit
+- Rebuilt for live555
 
 * Sat Jan 11 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-14.git21c2a25
 - Updated to current commit
