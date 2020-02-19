@@ -218,7 +218,7 @@ BuildRequires: faad2-devel >= 2.9.1
 BuildRequires: libdca-devel
 BuildRequires: libdvbpsi-devel
 BuildRequires: libmad-devel
-BuildRequires: mpeg2dec-devel >= 0.3.2
+BuildRequires: libmpeg2-devel >= 0.3.2 
 BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0.157
 BuildRequires: x265-devel >= 3.2.1
