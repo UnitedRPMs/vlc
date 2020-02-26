@@ -14,8 +14,8 @@
 
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 
-%global gitdate 20200213
-%global commit0 ae25ccd854957ad7148bd4b18c283b3a86e9d60b
+%global gitdate 20200226
+%global commit0 7f204ee4b414ee479428ce0e926fd06c7023e649
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -52,7 +52,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.9
-Release:	16%{?gver}%{?dist}
+Release:	17%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -221,7 +221,7 @@ BuildRequires: libmad-devel
 BuildRequires: libmpeg2-devel >= 0.3.2 
 BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 0.157
-BuildRequires: x265-devel >= 3.2.1
+BuildRequires: x265-devel >= 3.3
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 2020.02.11
 BuildRequires: mpg123-devel
@@ -692,6 +692,10 @@ fi || :
 
 
 %changelog
+
+* Mon Feb 24 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-17.git7f204ee
+- Updated to current commit
+- Rebuilt for x265
 
 * Thu Feb 13 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9-16.gitae25ccd
 - Updated to current commit
