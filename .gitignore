@@ -6,3 +6,4 @@ SRPMS/*
 vlc*.tar.xz
 vlc*.tar.gz
 .directory
+*.rpm
