@@ -14,8 +14,8 @@
 
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 
-%global gitdate 20200409
-%global commit0 d4c1aefe4d0146275beeaea33867ffd5d12b40e3
+%global gitdate 20200423
+%global commit0 7f145afa84af9ed141c2d93fea8a67b3291d9ed5
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -51,7 +51,7 @@
 
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
-Version:	3.0.9.2
+Version:	3.0.10
 Release:	7%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
@@ -468,11 +468,11 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
 	--enable-shared 			\
 	--disable-static			\
 %if %{with vaapi}
-        --enable-libva 				\
+        --enable-libva 			\
 %else
         --disable-libva 			\
 %endif
-        --enable-skins2				\
+        --enable-skins2			\
 %if %{with freerdp}
 	--enable-freerdp	                \		
 %endif	
@@ -482,7 +482,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
 	--disable-projectm			\
 %endif
 	--enable-dav1d				\
-        --enable-lirc  				\                            
+        --enable-lirc  			\ 
 echo '********* FINISHED CONFIGURE *********'
 date
 
@@ -692,6 +692,9 @@ fi || :
 
 
 %changelog
+
+* Thu Apr 23 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.10-7.git7f145af
+- Updated to 3.0.10
 
 * Thu Apr 09 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.9.2-7.gitd4c1aef
 - Updated to 3.0.9.2
