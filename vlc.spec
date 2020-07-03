@@ -14,7 +14,7 @@
 
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 
-%global commit0 dc0c5ced7230e5660142302c7c1aef6cc14f3564
+%global commit0 bb10dd0f382cbf7fe1b56f1ae642ef8107c31fbe
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -51,7 +51,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.11
-Release:	7%{?gver}%{?dist}
+Release:	8%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -60,6 +60,7 @@ Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-
 Source1:	vlc-snapshot
 Patch:		vlc-qt5.11.patch
 Patch1:	https://github.com/RPi-Distro/vlc/raw/stretch-rpt/debian/patches/mmal_8.patch
+Patch2:	qt_5_15.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -86,7 +87,7 @@ BuildRequires:  libsecret-devel
 BuildRequires:  libnotify-devel
 
 %if %{with ffmpeg}
-BuildRequires: ffmpeg-devel >= 4.0
+BuildRequires: ffmpeg-devel >= 4.3
 %endif
 %if %{with libav}
 BuildRequires: libav-devel >= 11.4
@@ -263,6 +264,7 @@ BuildRequires: libaom-devel
 # The skins2 module depends on the Qt interface. Without it you will not be able to open any dialog box from the interface, which makes the skins2 interface rather useless.
 %if %{with qt5}
 BuildRequires: qt5-qtbase-devel
+BuildRequires: qt5-qtbase-private-devel
 BuildRequires: pkgconfig(Qt5) >= 5.5
 BuildRequires: pkgconfig(Qt5Widgets) >= 5.5
 BuildRequires: pkgconfig(Qt5Core) >= 5.5
@@ -695,6 +697,9 @@ fi || :
 
 
 %changelog
+
+* Tue Jun 23 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.11-8.gitbb10dd0
+- Rebuilt for ffmpeg 
 
 * Mon Jun 08 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.11-7.gitdc0c5ce
 - Updated to 3.0.11
