@@ -698,7 +698,7 @@ fi || :
 
 %changelog
 
-* Mon Jul 27 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.11.1-9.git8d26ecb
+* Mon Jul 27 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.11.1-7.git8d26ecb
 - Updated to 3.0.11.1
 
 * Sat Jul 04 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.11-9.git5a7e1f7
