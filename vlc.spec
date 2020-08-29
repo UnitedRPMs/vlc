@@ -60,7 +60,7 @@ Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-
 Source1:	vlc-snapshot
 Patch:		vlc-qt5.11.patch
 Patch1:	https://github.com/RPi-Distro/vlc/raw/stretch-rpt/debian/patches/mmal_8.patch
-Patch2:	qt_5_15.patch
+#Patch2:	qt_5_15.patch
 Patch3:	lua53_compat.patch
 
 BuildRequires:	desktop-file-utils
