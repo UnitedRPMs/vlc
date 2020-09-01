@@ -14,7 +14,7 @@
 
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 
-%global commit0 30b3d0e5e3f720d011a1c98e8dc2437dc339153e
+%global commit0 4f899efc13a3a8f5259ce260655dfdd6f4830299
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -51,7 +51,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.11.1
-Release:	8%{?gver}%{?dist}
+Release:	9%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -495,11 +495,11 @@ date
 
 #./compile
 CFLAGS="-fPIC"
-make %{?_smp_mflags} V=0 || return 1
+%make_build %{?_smp_mflags} V=0 || return 1
 #make %{?_smp_mflags}
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" CPPROG="cp -p" %{?_smp_mflags}
+%make_install INSTALL="install -p" CPPROG="cp -p" %{?_smp_mflags}
 #make DESTDIR=%{buildroot} install %{?_smp_mflags}
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
@@ -698,6 +698,10 @@ fi || :
 
 
 %changelog
+
+* Mon Aug 31 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.11.1-9.git4f899ef
+- Updated to current commit
+- Rebuilt for live555
 
 * Thu Aug 27 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.11.1-8.git30b3d0e
 - Updated to current commit
