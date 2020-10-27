@@ -16,7 +16,7 @@ install: true
 
 # the build scripts
 script:
-- docker run --privileged=true --cap-add=SYS_ADMIN --security-opt seccomp:unconfined -v $(pwd)/33:/root/enjoy/ davidva/unibuild-33 /bin/sh -c "rm -f /urpms && wget -c https://raw.githubusercontent.com/kuboosoft/united-build/master/urpms && chmod a+x urpms && /urpms -g UnitedRPMs/vlc -s vlc.spec -r true -d 'dist .fc33' -u true"   
+- docker run --privileged=true --cap-add=SYS_ADMIN --security-opt seccomp:unconfined -v $(pwd)/34:/root/enjoy/ davidva/unibuild-34 /bin/sh -c "rm -f /urpms && wget -c https://raw.githubusercontent.com/kuboosoft/united-build/master/urpms && chmod a+x urpms && /urpms -g UnitedRPMs/vlc -s vlc.spec -r true -d 'dist .fc34' -u true"   
 
 notifications:
 slack: unitedrpms:lzDykHTpajKrgmGz9NkrO1Hj
