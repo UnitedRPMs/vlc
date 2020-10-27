@@ -282,6 +282,11 @@ BuildRequires: libplacebo-devel
 %endif
 
 BuildRequires:	clang llvm
+%if 0%{?fedora} >= 34
+BuildRequires:	libdvdread >= 6.1.1
+%else
+BuildRequires:	libdvdread
+%endif
 
 Provides: %{name}-xorg = %{version}-%{release}
 Requires: vlc-core  = %{version}-%{release}
