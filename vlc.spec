@@ -14,7 +14,7 @@
 
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 
-%global commit0 a66f141b17e792bcc298c83496749ec93265ff14
+%global commit0 f6d17cd8e4ab636dbf83580244b77f7091a4e856
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -51,7 +51,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.11.1
-Release:	10%{?gver}%{?dist}
+Release:	12%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -221,7 +221,7 @@ BuildRequires: libdvbpsi-devel
 BuildRequires: libmad-devel
 BuildRequires: libmpeg2-devel >= 0.3.2 
 BuildRequires: twolame-devel
-BuildRequires: x264-devel >= 0.159
+BuildRequires: x264-devel >= 0.161
 BuildRequires: x265-devel >= 3.4
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 2020.08.19
@@ -383,18 +383,17 @@ modules).
 
 %autosetup -T -D -n vlc-%{shortcommit0} -p1
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
-sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
+#sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
 
 ### And LUA 5.3.4 has some more API changes
 sed -i 's/luaL_checkint(/(int)luaL_checkinteger(/' \
     modules/lua/{demux,libs/{configuration,dialog,net,osd,playlist,stream,variables,volume}}.c
 
 
-
 echo '********* BOOTSTRAPPING *********'
 date
 
-
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
 ./bootstrap
 
 %build
@@ -479,11 +478,11 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
 	--enable-shared 			\
 	--disable-static			\
 %if %{with vaapi}
-        --enable-libva 			\
+        --enable-libva 				\
 %else
         --disable-libva 			\
 %endif
-        --enable-skins2			\
+        --enable-skins2				\
 %if %{with freerdp}
 	--enable-freerdp	                \		
 %endif	
@@ -493,10 +492,12 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
 	--disable-projectm			\
 %endif
 	--enable-dav1d				\
-        --enable-lirc  			\ 
+        --enable-lirc  				\ 
 echo '********* FINISHED CONFIGURE *********'
 date
 
+#	--enable-aribsub			\
+#    	--enable-aribcam			\
 
 #./compile
 CFLAGS="-fPIC"
@@ -703,6 +704,10 @@ fi || :
 
 
 %changelog
+
+* Mon Nov 23 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.11.1-12.gitf6d17cd
+- Rebuilt for x264
+- Updated to current commit
 
 * Mon Oct 26 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.11.1-10.gita66f141
 - Updated to current commit
