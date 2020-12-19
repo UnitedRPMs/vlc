@@ -14,7 +14,7 @@
 
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 
-%global commit0 92a4539abf9b7e3a61bd0c555adc568c0798ed22
+%global commit0 170157402b9c9ee5651838499549328c6715b5fe
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -50,7 +50,7 @@
 
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
-Version:	3.0.12
+Version:	3.0.12.1
 Release:	7%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
@@ -59,9 +59,9 @@ URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
 Patch:		vlc-qt5.11.patch
-Patch1:	https://github.com/RPi-Distro/vlc/raw/stretch-rpt/debian/patches/mmal_8.patch
+Patch1:		https://github.com/RPi-Distro/vlc/raw/stretch-rpt/debian/patches/mmal_8.patch
 #Patch2:	qt_5_15.patch
-Patch3:	lua53_compat.patch
+Patch3:		lua53_compat.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -704,6 +704,9 @@ fi || :
 
 
 %changelog
+
+* Thu Dec 17 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12.1-7.git1701574
+- Updated to 3.0.12.1
 
 * Fri Nov 27 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12-7.git92a4539
 - Updated to 3.0.12
