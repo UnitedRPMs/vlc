@@ -51,7 +51,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.12.1
-Release:	7%{?gver}%{?dist}
+Release:	8%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -252,8 +252,8 @@ BuildRequires:	libmicrodns-devel
 # NEW
 BuildRequires: cmake
 BuildRequires: lirc-devel
-%if 0%{?fedora} >= 33
-BuildRequires: pkgconfig(dav1d) >= 0.7.0
+%if 0%{?fedora} >= 34
+BuildRequires: pkgconfig(dav1d) >= 0.8.0
 %else
 BuildRequires: pkgconfig(dav1d) 
 %endif
@@ -704,6 +704,9 @@ fi || :
 
 
 %changelog
+
+* Tue Dec 29 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12.1-8.git1701574
+- Rebuilt
 
 * Thu Dec 17 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12.1-7.git1701574
 - Updated to 3.0.12.1
