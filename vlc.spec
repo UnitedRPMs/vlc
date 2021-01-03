@@ -252,7 +252,7 @@ BuildRequires:	libmicrodns-devel
 # NEW
 BuildRequires: cmake
 BuildRequires: lirc-devel
-%if 0%{?fedora} >= 34
+%if 0%{?fedora} >= 33
 BuildRequires: pkgconfig(dav1d) >= 0.8.0
 %else
 BuildRequires: pkgconfig(dav1d) 
