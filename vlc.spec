@@ -1,7 +1,7 @@
 #
 # spec file for package vlc
 #
-# Copyright (c) 2020 UnitedRPMs.
+# Copyright (c) 2021 UnitedRPMs.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -14,7 +14,9 @@
 
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 
-%global commit0 170157402b9c9ee5651838499549328c6715b5fe
+#define _legacy_common_support 1
+
+%global commit0 3aad852a05d9a3b2469328cb9ea2e20b0acbce5c
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -58,10 +60,11 @@ Group:		Applications/Multimedia
 URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
-Patch:		vlc-qt5.11.patch
-Patch1:		https://github.com/RPi-Distro/vlc/raw/stretch-rpt/debian/patches/mmal_8.patch
-#Patch2:	qt_5_15.patch
-Patch3:		lua53_compat.patch
+
+Patch0: 	0001-Add-missing-include-limits-to-file-using-std.patch
+Patch1:		vlc-3.0.11.1-configure_lua_version.patch
+Patch2:		vlc-lua-5.3.patch
+Patch3:		vlc-3.0.11.1-srt_1.4.2.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -78,6 +81,7 @@ BuildRequires:  libmpc-devel
 %if %{with gstreamer}
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 %endif
+BuildRequires:	pkgconfig(srt)
 BuildRequires:  speexdsp-devel
 BuildRequires:	openjpeg-devel
 BuildRequires:	libmfx-devel
@@ -245,14 +249,12 @@ BuildRequires: wayland-protocols-devel
 
 # Chromecast
 BuildRequires:  protobuf-lite-devel
-%if 0%{?fedora} >= 26
 BuildRequires:	libmicrodns-devel
-%endif
 
 # NEW
 BuildRequires: cmake
 BuildRequires: lirc-devel
-%if 0%{?fedora} >= 33
+%if 0%{?fedora} >= 34
 BuildRequires: pkgconfig(dav1d) >= 0.8.0
 %else
 BuildRequires: pkgconfig(dav1d) 
@@ -382,43 +384,49 @@ modules).
 %{S:1} -c %{commit0}
 
 %autosetup -T -D -n vlc-%{shortcommit0} -p1
+
+
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
 #sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
 
 ### And LUA 5.3.4 has some more API changes
 sed -i 's/luaL_checkint(/(int)luaL_checkinteger(/' \
     modules/lua/{demux,libs/{configuration,dialog,net,osd,playlist,stream,variables,volume}}.c
-
-
-echo '********* BOOTSTRAPPING *********'
+    
+    echo '********* BOOTSTRAPPING *********'
 date
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
+export CXXFLAGS="%optflags -D__STDC_CONSTANT_MACROS -fno-strict-aliasing"
+export ACLOCAL_ARGS="-I /usr/share/aclocal"
 ./bootstrap
 
-%build
 
-# PKG_CONFIG_PATH=%{_libdir}/freerdp1/pkgconfig/:%{_libdir}/pkgconfig/:%{_libdir}/libav/pkgconfig/:/opt/freerdp-1.0.2/%{_lib}/pkgconfig/:
-#XCFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2" XLDFLAGS="-Wl,-z,relro"
-
-
+# Disable running of vlc-cache-gen, we do that in pkg_postinst
+	sed -e "/test.*build.*host/s/\$(host)/nothanks/" \
+		-i Makefile.am -i bin/Makefile.am
+		
 %if %{with projectM}
 sed -e 's:truetype/ttf-dejavu:TTF:g' -i modules/visualization/projectm.cpp
 sed -e 's|-Werror-implicit-function-declaration||g' -i configure
 sed 's|whoami|echo builduser|g' -i configure
 sed 's|hostname -f|echo arch|g' -i configure
 %endif
-
+                         
+   
+%build
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/
+export RCC=/usr/bin/rcc-qt5
 
-%configure  \
+BUILDCC=gcc %configure  \
 	--disable-dependency-tracking		\
 	--disable-optimizations			\
-%if 0%{?fedora} >= 22
+	--disable-maintainer-mode		\
+	--disable-merge-ffmpeg			\
+	--disable-sidplay			\
 %ifarch i686
 	--disable-mmx --disable-sse		\
-%endif
 %endif
 	--disable-silent-rules			\
 	--with-pic				\
@@ -499,13 +507,14 @@ date
 #	--enable-aribsub			\
 #    	--enable-aribcam			\
 
+
+export CXXFLAGS="%optflags -D__STDC_CONSTANT_MACROS -fno-strict-aliasing"
 #./compile
-CFLAGS="-fPIC"
-%make_build %{?_smp_mflags} V=0 || return 1
-#make %{?_smp_mflags}
+
+make %{?_smp_mflags} V=0 || return 1
 
 %install
-%make_install INSTALL="install -p" CPPROG="cp -p" %{?_smp_mflags}
+%make_install V=0 INSTALL="install -p" CPPROG="cp -p" %{?_smp_mflags}
 #make DESTDIR=%{buildroot} install %{?_smp_mflags}
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
@@ -705,8 +714,10 @@ fi || :
 
 %changelog
 
-* Tue Dec 29 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12.1-8.git1701574
-- Rebuilt
+* Fri Jan 29 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12.1-8.git3aad852
+- Updated to current commit 
+- Lua fixes
+- Srt fixes
 
 * Thu Dec 17 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12.1-7.git1701574
 - Updated to 3.0.12.1

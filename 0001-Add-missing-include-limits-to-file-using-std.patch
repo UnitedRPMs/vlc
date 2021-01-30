@@ -1,0 +1,76 @@
+From 804aacea64e2b83f7434efd3c11dbca2eb7fa80b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Robert-Andr=C3=A9=20Mauchin?= <zebob.m@gmail.com>
+Date: Mon, 14 Dec 2020 12:54:39 +0100
+Subject: [PATCH] Add missing include <limits> to file using std::
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+numeric_limits<uint64_t>::max()
+
+Compilation would fail with:
+
+> error: 'numeric_limits' is not a member of 'std'
+
+without this include because of some hardening build
+flags mandated on Fedora Linux, with GCC 11.
+
+Fix: #25325
+
+Signed-off-by: Robert-André Mauchin <zebob.m@gmail.com>
+---
+ modules/demux/adaptive/playlist/Inheritables.cpp       | 1 +
+ modules/demux/adaptive/playlist/SegmentInformation.cpp | 1 +
+ modules/demux/adaptive/playlist/SegmentTimeline.cpp    | 1 +
+ modules/demux/hls/playlist/Parser.cpp                  | 1 +
+ modules/demux/mkv/matroska_segment.cpp                 | 1 +
+ modules/demux/mkv/mkv.cpp                              | 1 +
+ 6 files changed, 6 insertions(+)
+
+diff -up vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/adaptive/playlist/SegmentInformation.cpp.orig vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/adaptive/playlist/SegmentInformation.cpp
+--- vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/adaptive/playlist/SegmentInformation.cpp.orig	2020-10-27 09:16:09.000000000 +0100
++++ vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/adaptive/playlist/SegmentInformation.cpp	2020-12-14 19:34:41.600005319 +0100
+@@ -34,6 +34,7 @@
+
+ #include <algorithm>
+ #include <cassert>
++#include <limits>
+
+ using namespace adaptive::playlist;
+
+diff -up vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/hls/playlist/Parser.cpp.orig vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/hls/playlist/Parser.cpp
+--- vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/hls/playlist/Parser.cpp.orig	2020-10-27 09:16:09.000000000 +0100
++++ vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/hls/playlist/Parser.cpp	2020-12-14 19:34:41.600005319 +0100
+@@ -42,6 +42,7 @@
+ #include <map>
+ #include <cctype>
+ #include <algorithm>
++#include <limits>
+
+ using namespace adaptive;
+ using namespace adaptive::playlist;
+diff -up vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/mkv/matroska_segment.cpp.orig vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/mkv/matroska_segment.cpp
+--- vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/mkv/matroska_segment.cpp.orig	2020-10-27 09:16:09.000000000 +0100
++++ vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/mkv/matroska_segment.cpp	2020-12-14 19:34:41.601005298 +0100
+@@ -31,6 +31,7 @@
+
+ #include <new>
+ #include <iterator>
++#include <limits>
+
+ matroska_segment_c::matroska_segment_c( demux_sys_t & demuxer, EbmlStream & estream, KaxSegment *p_seg )
+     :segment(p_seg)
+diff -up vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/mkv/mkv.cpp.orig vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/mkv/mkv.cpp
+--- vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/mkv/mkv.cpp.orig	2020-10-27 09:16:09.000000000 +0100
++++ vlc-3.0-a66f141b17e792bcc298c83496749ec93265ff14/modules/demux/mkv/mkv.cpp	2020-12-14 19:34:41.601005298 +0100
+@@ -34,6 +34,7 @@
+ #include "stream_io_callback.hpp"
+
+ #include <new>
++#include <limits>
+
+ extern "C" {
+     #include "../av1_unpack.h"
+--
+2.29.2
+
