@@ -16,7 +16,7 @@
 
 #define _legacy_common_support 1
 
-%global commit0 3aad852a05d9a3b2469328cb9ea2e20b0acbce5c
+%global commit0 09cc13c481c03a2c4d0cb553d05886b89ab4a91b
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -53,7 +53,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.12.1
-Release:	9%{?gver}%{?dist}
+Release:	10%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -717,6 +717,9 @@ fi || :
 
 
 %changelog
+
+* Mon Feb 15 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12.1-10.git09cc13c
+- Updated to current commit 
 
 * Fri Jan 29 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12.1-9.git3aad852
 - Updated to current commit 
