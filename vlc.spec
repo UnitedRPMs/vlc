@@ -16,7 +16,7 @@
 
 #define _legacy_common_support 1
 
-%global commit0 09cc13c481c03a2c4d0cb553d05886b89ab4a91b
+%global commit0 41878ff4f2a4b566cf0a1bd15f72037b2be98a18
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -52,8 +52,8 @@
 
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
-Version:	3.0.12.1
-Release:	10%{?gver}%{?dist}
+Version:	3.0.14
+Release:	7%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -61,7 +61,7 @@ URL:		http://www.videolan.org
 Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:	vlc-snapshot
 
-Patch0: 	0001-Add-missing-include-limits-to-file-using-std.patch
+#Patch0: 	0001-Add-missing-include-limits-to-file-using-std.patch
 Patch1:		vlc-3.0.11.1-configure_lua_version.patch
 Patch2:		vlc-lua-5.3.patch
 Patch3:		vlc-3.0.11.1-srt_1.4.2.patch
@@ -225,8 +225,8 @@ BuildRequires: libdvbpsi-devel
 BuildRequires: libmad-devel
 BuildRequires: libmpeg2-devel >= 0.3.2 
 BuildRequires: twolame-devel
-BuildRequires: x264-devel >= 0.161
-BuildRequires: x265-devel >= 3.4
+BuildRequires: x264-devel >= 1:0.161
+BuildRequires: x265-devel >= 3.5
 BuildRequires: xvidcore-devel
 BuildRequires: live555-devel >= 2020.08.19
 BuildRequires: mpg123-devel
@@ -717,6 +717,9 @@ fi || :
 
 
 %changelog
+
+* Tue May 11 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.14-7.git41878ff
+- Updated to 3.0.14
 
 * Mon Feb 15 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.12.1-10.git09cc13c
 - Updated to current commit 
