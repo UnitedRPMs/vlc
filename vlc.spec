@@ -53,7 +53,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.14
-Release:	7%{?gver}%{?dist}
+Release:	8%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -65,6 +65,7 @@ Source1:	vlc-snapshot
 Patch1:		vlc-3.0.11.1-configure_lua_version.patch
 Patch2:		vlc-lua-5.3.patch
 Patch3:		vlc-3.0.11.1-srt_1.4.2.patch
+Patch4:		vlc-live-media-2021.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -228,7 +229,7 @@ BuildRequires: twolame-devel
 BuildRequires: x264-devel >= 1:0.161
 BuildRequires: x265-devel >= 3.5
 BuildRequires: xvidcore-devel
-BuildRequires: live555-devel >= 2020.08.19
+BuildRequires: live555-devel >= 2021.05.03
 BuildRequires: mpg123-devel
 
 BuildRequires: libdrm-devel
@@ -717,6 +718,9 @@ fi || :
 
 
 %changelog
+
+* Mon May 17 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.14-8.git41878ff
+- Rebuilt for live555
 
 * Tue May 11 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.14-7.git41878ff
 - Updated to 3.0.14
