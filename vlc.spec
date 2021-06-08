@@ -16,7 +16,7 @@
 
 #define _legacy_common_support 1
 
-%global commit0 41878ff4f2a4b566cf0a1bd15f72037b2be98a18
+%global commit0 e30973a45e8c4f075cf5a6094f500cd3100665f5
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -52,8 +52,8 @@
 
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
-Version:	3.0.14
-Release:	8%{?gver}%{?dist}
+Version:	3.0.15
+Release:	7%{?gver}%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -190,6 +190,9 @@ BuildRequires:	qt4-devel qt-x11
 BuildRequires: schroedinger-devel >= 1.0.10
 BuildRequires:	sqlite-devel
 BuildRequires:	SDL_image-devel
+BuildRequires:  SDL2-devel
+BuildRequires:  SDL2_image-devel
+BuildRequires:  SDL-devel
 %{?_with_sidplay:BuildRequires: pkgconfig(libsidplay2)}
 BuildRequires:	speex-devel >= 1.1.5
 BuildRequires:	taglib-devel
@@ -505,6 +508,11 @@ BUILDCC=gcc %configure  \
 	--disable-projectm			\
 %endif
 	--enable-dav1d				\
+	%if 0%{?fedora} <= 34
+	--enable-sdl-image			\
+	%else
+	--disable-sdl-image			\
+	%endif
         --enable-lirc  				\ 
 echo '********* FINISHED CONFIGURE *********'
 date
@@ -718,6 +726,9 @@ fi || :
 
 
 %changelog
+
+* Mon Jun 07 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.15-7.gite30973a
+- Updated to 3.0.15
 
 * Mon May 17 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.14-8.git41878ff
 - Rebuilt for live555
