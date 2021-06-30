@@ -16,9 +16,6 @@
 
 #define _legacy_common_support 1
 
-%global commit0 e30973a45e8c4f075cf5a6094f500cd3100665f5
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gver .git%{shortcommit0}
 
 %bcond_without workaround_circle_deps 
 %bcond_without codecs
@@ -52,13 +49,13 @@
 
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
-Version:	3.0.15
-Release:	7%{?gver}%{?dist}
+Version:	3.0.16
+Release:	7%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.videolan.org
-Source0:	https://github.com/videolan/vlc-3.0/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source0:	https://download.videolan.org/vlc/%{version}/vlc-%{version}.tar.xz
 Source1:	vlc-snapshot
 
 #Patch0: 	0001-Add-missing-include-limits-to-file-using-std.patch
@@ -386,12 +383,7 @@ modules).
 
 %prep
 
-# Our trick; the tarball doesn't download completely the source code; vlc needs some data from .git
-# the script makes it for us.
-
-%{S:1} -c %{commit0}
-
-%autosetup -T -D -n vlc-%{shortcommit0} -p1
+%autosetup -n vlc-3.0.16 -p1
 
 
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
@@ -726,6 +718,9 @@ fi || :
 
 
 %changelog
+
+* Tue Jun 22 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.16-7
+- Updated to 3.0.16
 
 * Mon Jun 07 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.15-7.gite30973a
 - Updated to 3.0.15
