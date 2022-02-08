@@ -1,7 +1,7 @@
 #
 # spec file for package vlc
 #
-# Copyright (c) 2021 UnitedRPMs.
+# Copyright (c) 2022 UnitedRPMs.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -15,6 +15,8 @@
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 
 #define _legacy_common_support 1
+
+# 827394029074561a7f44ec7c0c477f6f7b483768
 
 
 %bcond_without workaround_circle_deps 
@@ -50,7 +52,7 @@
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
 Version:	3.0.16
-Release:	7%{?dist}
+Release:	8%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -90,7 +92,7 @@ BuildRequires:  libsecret-devel
 BuildRequires:  libnotify-devel
 
 %if %{with ffmpeg}
-BuildRequires: ffmpeg-devel >= 4.3
+BuildRequires: ffmpeg4-devel 
 %endif
 %if %{with libav}
 BuildRequires: libav-devel >= 11.4
@@ -257,6 +259,12 @@ BuildRequires:	libmicrodns-devel
 %endif
 
 # NEW
+BuildRequires: pkgconfig(Qt5QuickControls2)
+BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(freetype2)
+BuildRequires: pkgconfig(xpm)
+BuildRequires: pkgconfig(xext)
+BuildRequires: pkgconfig(xinerama)
 BuildRequires: cmake
 BuildRequires: lirc-devel
 %if 0%{?fedora} >= 34
@@ -383,15 +391,16 @@ modules).
 
 %prep
 
-%autosetup -n vlc-3.0.16 -p1
+%autosetup -n %{name}-%{version} -p1
 
+echo >> src/revision.txt
 
 # qt and wayland need merges forces for solve the DpiScaling and DpiPixmaps
 #sed -i '/#if HAS_QT56/,+3d' modules/gui/qt/qt.cpp
 
 ### And LUA 5.3.4 has some more API changes
-sed -i 's/luaL_checkint(/(int)luaL_checkinteger(/' \
-    modules/lua/{demux,libs/{configuration,dialog,net,osd,playlist,stream,variables,volume}}.c
+#sed -i 's/luaL_checkint(/(int)luaL_checkinteger(/' \
+#    modules/lua/{demux,libs/{configuration,dialog,net,osd,playlist,stream,variables,volume}}.c
     
     echo '********* BOOTSTRAPPING *********'
 date
@@ -718,6 +727,9 @@ fi || :
 
 
 %changelog
+
+* Sat Jan 22 2022 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.16-8
+- Rebuilt ffmpeg
 
 * Tue Jun 22 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.16-7
 - Updated to 3.0.16
