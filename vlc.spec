@@ -51,8 +51,8 @@
 
 Summary:	The cross-platform open-source multimedia framework, player and server
 Name:		vlc
-Version:	3.0.16
-Release:	8%{?dist}
+Version:	3.0.17.3
+Release:	7%{?dist}
 Epoch:		1
 License:	GPLv2+
 Group:		Applications/Multimedia
@@ -63,7 +63,7 @@ Source1:	vlc-snapshot
 #Patch0: 	0001-Add-missing-include-limits-to-file-using-std.patch
 Patch1:		vlc-3.0.11.1-configure_lua_version.patch
 Patch2:		vlc-lua-5.3.patch
-Patch3:		vlc-3.0.11.1-srt_1.4.2.patch
+#Patch3:		vlc-3.0.11.1-srt_1.4.2.patch
 Patch4:		vlc-live-media-2021.patch
 
 BuildRequires:	desktop-file-utils
@@ -727,6 +727,9 @@ fi || :
 
 
 %changelog
+
+* Sun Mar 13 2022 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.17.3-7
+- Updated to 3.0.17.3
 
 * Sat Jan 22 2022 Unitedrpms Project <unitedrpms AT protonmail DOT com> 3.0.16-8
 - Rebuilt ffmpeg
