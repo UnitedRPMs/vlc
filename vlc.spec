@@ -86,6 +86,9 @@ BuildRequires:  speexdsp-devel
 BuildRequires:	openjpeg-devel
 BuildRequires:	libmfx-devel
 BuildRequires:	fluidsynth-devel
+BuildRequires:	pkgconfig(libnotify)
+BuildRequires:	pkgconfig(libplacebo)
+BuildRequires:	annobin-plugin-gcc
 %if 0%{?fedora} <= 35
 BuildRequires:	libvmmalloc-devel
 %endif
@@ -435,7 +438,6 @@ BUILDCC=gcc %configure  \
 	--disable-optimizations			\
 	--disable-maintainer-mode		\
 	--disable-merge-ffmpeg			\
-	--disable-sidplay			\
 %ifarch i686
 	--disable-mmx --disable-sse		\
 %endif
