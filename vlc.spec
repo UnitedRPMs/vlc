@@ -86,7 +86,9 @@ BuildRequires:  speexdsp-devel
 BuildRequires:	openjpeg-devel
 BuildRequires:	libmfx-devel
 BuildRequires:	fluidsynth-devel
+%if 0%{?fedora} <= 35
 BuildRequires:	libvmmalloc-devel
+%endif
 BuildRequires:  soxr-devel
 BuildRequires:  libsecret-devel
 BuildRequires:  libnotify-devel
