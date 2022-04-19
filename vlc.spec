@@ -63,7 +63,7 @@ Source1:	vlc-snapshot
 #Patch0: 	0001-Add-missing-include-limits-to-file-using-std.patch
 Patch1:		vlc-3.0.11.1-configure_lua_version.patch
 Patch2:		vlc-lua-5.3.patch
-#Patch3:		vlc-3.0.11.1-srt_1.4.2.patch
+Patch3:		caca-fix-to-newer-version.patch
 Patch4:		vlc-live-media-2021.patch
 
 BuildRequires:	desktop-file-utils
